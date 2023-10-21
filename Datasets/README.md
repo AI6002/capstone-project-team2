@@ -1,6 +1,6 @@
 # Datasets VQA-2
 
-Since the Dataset is So Huge we have added the download and Extract Script to Setup Database as required.
+Since the Dataset is So Huge we have added the download and Extract python file Setup Database as required.
 
 ## Directory and File Structure
 ```
@@ -20,6 +20,5 @@ Since the Dataset is So Huge we have added the download and Extract Script to Se
 ## Download and unzip the dataset from official url of VQA: https://visualqa.org/download.html.
 We have used VQA2 in for this project
 ```bash
-$ chmod +x download_and_unzip_datasets.csh
-$ ./download_and_unzip_datasets.csh
+python download_dataset.py
 ```
