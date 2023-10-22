@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}
+Home
+{% endblock %}
+
+{% block content %}
+<h1 align="center">Vision Question Answering</h1>
+
+<!-- Question Form -->
+<form method="POST" action="{{ url_for('index') }}" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="image">Upload an Image:</label>
+        <input type="file" name="image" id="image" class="form-control">
+    </div>
+    <div class="form-group">
+        <label for="question">Ask a question about the image:</label>
+        <textarea name="question" id="question" class="form-control"></textarea>
+    </div>
+    <div align="center">
+        <button type="submit" class="btn btn-primary">Submit Question</button>
+    </div>
+</form>
+
+<!-- Display Answer if available -->
+{% if answer %}
+<div class="alert alert-info" role="alert">
+  <strong>Answer:</strong> {{ answer }}
+</div>
+{% endif %}
+
+{% endblock %}
