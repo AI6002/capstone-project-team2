@@ -1,0 +1,25 @@
+# VQA Web-Application - FLASK 
+
+## Dependencies
+
+### Dependencies for flask
+* **flask:** ```conda install -c anaconda flask```
+* **flask-login:** ```conda install -c conda-forge flask-login```
+* **flask_sqlalchemy:** ```conda install -c conda-forge flask-sqlalchemy```
+
+### Dependencies for VQA
+* **pytorch torchvision torchaudio:** ```conda install pytorch torchvision torchaudio pytorch-cuda=12.1 -c pytorch -c nvidia```
+* **transformers:** ```conda install -c huggingface transformers```
+* **PIL:**  ```conda install -c anaconda pillow```
+* **numpy:**  ```conda install numpy```  
+* **matplotlib:** ```matplotlib```
+
+
+## Run the Web-App
+
+```
+$ flask --app main run
+Serving Flask app 'hello'
+Running on http://127.0.0.1:5000 (Press CTRL+C to quit)
+
+```
