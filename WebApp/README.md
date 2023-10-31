@@ -27,4 +27,5 @@ Running on http://127.0.0.1:5000 (Press CTRL+C to quit)
 ```
 
 ## Flask Reference
+* Quick start (offl): https://flask.palletsprojects.com/en/3.0.x/quickstart/
 * Flask Beginners: https://python-adv-web-apps.readthedocs.io/en/latest/flask3.html
