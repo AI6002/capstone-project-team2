@@ -6,7 +6,14 @@ from web.auth import auth
 from web.views import views  # Importing views blueprint
 import os
 
-app = create_app()  # creating an instance of your application
+# Get the current working directory
+current_dir = os.getcwd()
+
+# Define the template and static directories by appending to the current directory
+template_dir = os.path.join(current_dir, 'templates')
+static_dir = os.path.join(current_dir, 'static')
+
+app = create_app(template_dir, static_dir)  # creating an instance of your application
 
 app.secret_key = os.environ.get('SECRET_KEY', 'Team2')  # Using a fallback value if the environment variable is not found
 
