@@ -6,6 +6,8 @@
 * **flask:** ```conda install -c anaconda flask```
 * **flask-login:** ```conda install -c conda-forge flask-login```
 * **flask_sqlalchemy:** ```conda install -c conda-forge flask-sqlalchemy```
+* **flask_cors:** ```conda install -c conda-forge flask_cors```
+* **jinja2:** ```conda install -c anaconda jinja2```
 
 ### Dependencies for VQA
 * **pytorch torchvision torchaudio:** ```conda install pytorch torchvision torchaudio pytorch-cuda=12.1 -c pytorch -c nvidia```
