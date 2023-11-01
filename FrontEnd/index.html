@@ -31,7 +31,15 @@
                             <i class="fa-solid fa-bell"></i>
                         </div>
                         <div class="more-icon">
-                            <i class="fa-solid fa-ellipsis-vertical"></i>
+                            <div class="dropdown">
+                                <button class="btn btn-secondary bg-transparent border-0 dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                                </button>
+                                <ul class="dropdown-menu">
+                                  <li><a class="dropdown-item" href="?logout">Logout</a></li>
+                                </ul>
+                              </div>
+            
                         </div>
                     </div>
                     
@@ -44,8 +52,8 @@
                       <p>Image size must be less than <span>2MB</span></p>
                     </div>
                     <div class="button-wrapper text-center">
-                        <button class="btn btn-outline-primary">Uplaod A Picture</button>
-                        <button class="btn btn-outline-primary">Capture A Picture</button>
+                        <button class="btn btn-outline-primary" id ="upload">Uplaod A Picture</button>
+                        <button class="btn btn-outline-primary" id ="capture">Capture A Picture</button>
                     </div>
     
                   </div>
