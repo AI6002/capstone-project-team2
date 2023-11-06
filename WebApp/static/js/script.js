@@ -1,4 +1,4 @@
-const selectImage = document.querySelector('.btn-outline-primary');
+const selectImage = document.querySelector('#upload');
 const inputFile = document.querySelector('#file');
 const imgArea = document.querySelector('.img-area');
 
