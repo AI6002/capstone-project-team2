@@ -1,5 +1,40 @@
-<form method="POST">
-    <input type="text" name="username" placeholder="Username" required>
-    <input type="password" name="password" placeholder="Password" required>
-    <button type="submit">Login</button>
-</form>
+{% extends "base.html" %}
+
+
+{% block title %}
+Login VQA
+{% endblock %}
+
+
+{% block header %}
+<h1 align="center">Login VQA Chat-App</h1>
+{% endblock %}
+
+
+{% block content %}
+<div class="container">
+    <form method="post">
+        <div class="txt_field">
+            <input type="text" required>
+            <span></span>
+            <label>Username</label>
+        </div>
+        <div class="txt_field">
+            <input type="password" required>
+            <span></span>
+            <label>Password</label>
+        </div>
+        <div class="pass">Forgot Password?</div>
+        <input type="submit" value="Login">
+        <div class="signup_link">
+            Not a member? <a href="#">Signup</a>
+        </div>
+    </form>
+</div>
+{% endblock %}
+
+{% block additional_scripts %}
+<script>
+
+</script>
+{% endblock %}
