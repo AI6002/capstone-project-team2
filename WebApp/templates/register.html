@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}
+Register VQA
+{% endblock %}
+
+{% block header %}
+<h1 align="center">Register for VQA Chat-App</h1>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <form method="post">
+        <div class="txt_field">
+            <input type="text" name="username" required>
+            <span></span>
+            <label>Username</label>
+        </div>
+        <div class="txt_field">
+            <input type="email" name="email" required>
+            <span></span>
+            <label>Email</label>
+        </div>
+        <div class="txt_field">
+            <input type="password" name="password" required>
+            <span></span>
+            <label>Password</label>
+        </div>
+        <div class="txt_field">
+            <input type="password" name="confirm_password" required>
+            <span></span>
+            <label>Confirm Password</label>
+        </div>
+        <input type="submit" value="Register">
+        <div class="login_link">
+            Already a member? <a href="#">Login</a>
+        </div>
+    </form>
+</div>
+{% endblock %}
+
+{% block additional_scripts %}
+<script>
+
+</script>
+{% endblock %}
