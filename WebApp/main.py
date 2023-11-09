@@ -86,7 +86,8 @@ def logout():
 @app.route('/home')
 @login_required
 def home():
-    return render_template('home.html')
+    username = current_user.username
+    return render_template('home.html', username=username)
 
 # Error handler
 @app.errorhandler(500)

@@ -4,6 +4,10 @@
 Login VQA
 {% endblock %}
 
+{% block additional_head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='./css/Login.css')}}">
+{% endblock %}
+
 {% block header %}
 <h1 align="center">Login VQA Chat-App</h1>
 {% endblock %}
