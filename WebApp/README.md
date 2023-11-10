@@ -1,5 +1,31 @@
 # VQA Web-Application - FLASK 
 
+## Web Application Structure
+```
+/VQA_WebApp
+|-- /app
+|   |-- __init__.py
+|   |-- models.py
+|   |-- routes.py
+|   |-- extensions.py
+|-- /instance
+|   |-- vqa_users.db
+|-- /static
+|   |-- /css
+|   |   |-- # All css files
+|   |-- /images
+|   |   |-- # All Images
+|   |-- /js
+|   |   |-- # All js files
+|-- /templates
+|   |-- base.html
+|   |-- error.html
+|   |-- home.html
+|   |-- login.html
+|   |-- register.html
+|-- config.py
+|-- main.py
+```
 ## Dependencies
 
 ### Dependencies for flask

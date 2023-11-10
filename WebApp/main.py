@@ -1,22 +1,17 @@
-from flask import Flask
-from extensions import db, login_manager
-from models import User
+from app import create_app, set_dirs
+import os
 
-# Initialize the Flask application
-app = Flask(__name__)
-app.config['SECRET_KEY'] = 'team2vqa'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///vqa_users.db'  # SQLite database file
+# Get the current working directory
+current_dir = os.getcwd()
 
-db.init_app(app)
-login_manager.init_app(app)
+# Define the template and static directories by appending to the current directory
+static_dir = os.path.join(current_dir, 'static')
+template_dir = os.path.join(current_dir, 'templates')
 
-login_manager.login_view = 'login'
+# Create the Flask application
+set_dirs(static_dir, template_dir)
+app = create_app()  # creating an instance of your application
 
-@login_manager.user_loader
-def load_user(user_id):
-    return User.query.get(int(user_id))
-
-from routes import *
-
+# Run the App
 if __name__ == '__main__':
     app.run(debug=True)
