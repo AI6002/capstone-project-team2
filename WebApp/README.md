@@ -16,12 +16,25 @@
 * **numpy:**  ```conda install numpy```  
 * **matplotlib:** ```matplotlib```
 
+## Setup DB for First Ever Run
+
+#### Windows
+```
+set FLASK_APP=app.py
+flask create-db
+```
+
+####  Linux or macOS:
+
+```
+export FLASK_APP=app.py
+flask create-db
+```
 
 ## Run the Web-App
 
 ```
 $ flask --app main run
-Serving Flask app 'hello'
 Running on http://127.0.0.1:5000 (Press CTRL+C to quit)
 
 ```
