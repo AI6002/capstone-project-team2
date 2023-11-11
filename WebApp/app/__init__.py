@@ -6,11 +6,18 @@ from .models import User
 static_dir = ""
 template_dir = ""
 
-def set_dirs(static_dir, template_dir):
-    static_dir = static_dir
-    template_dir = template_dir
+def set_dirs(static, template):
+    global static_dir
+    global template_dir
+    
+    static_dir = static
+    template_dir = template
+    
+    print("Setting Dirs:", template_dir, static_dir)
+    return
     
 def create_app(config_object='config.Config'):
+    print("Creating Flask, Dirs:", template_dir, static_dir)
     app = Flask(__name__, template_folder=template_dir, static_folder=static_dir)
     app.config.from_object(config_object)
 
