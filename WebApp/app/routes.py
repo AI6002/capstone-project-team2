@@ -29,13 +29,21 @@ def init_routes(app):
                 
                 # Extract password and hash it
                 password = request.form['password']
-                hashed_password = generate_password_hash(password, method='sha256')
-
-                new_user = User(username=username, email=email, password=hashed_password)
-                db.session.add(new_user)
-                db.session.commit()
+                confirm_password = request.form['confirm_password']
                 
-                return redirect(url_for('login'))
+                # Validate Pass code Confirmation
+                if password == confirm_password:
+                    # Assuming user is successfully registered
+                    hashed_password = generate_password_hash(password, method='sha256')
+
+                    new_user = User(username=username, email=email, password=hashed_password)
+                    db.session.add(new_user)
+                    db.session.commit()
+                
+                    flash('Successfully registered! Please log in.')
+                    return redirect(url_for('login'))
+                else:
+                    flash('Confirm Password do not match.')
             
             except Exception as e:
                 # If there is any error, flash a message to the user
@@ -53,6 +61,8 @@ def init_routes(app):
             username = request.form['username']
             password = request.form['password']
 
+            print("submitted login:", username, password)
+            
             # Use username to find user 
             user = User.query.filter_by(username=username).first()
             if user:
@@ -60,8 +70,10 @@ def init_routes(app):
                 if check_password_hash(user.password, password):
                     login_user(user)
                     return redirect(url_for('home'))
-
-            flash('Invalid username or password')
+                else:
+                    flash('Invalid password')
+            else:
+                flash('User Not Found')
         return render_template('login.html')
 
 
