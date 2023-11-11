@@ -5,7 +5,7 @@ VQA Chat-App
 {% endblock %}
 
 {% block header %}
-<h1 align="center">VQA Chat-App</h1>
+<!-- Noting needed -->
 {% endblock %}
 
 {% block content %}
@@ -17,7 +17,7 @@ VQA Chat-App
                 <div class="top-section">
                     <div class="profile">
                         <div class="profile-image">
-                            <img src="./static/images/profile.jpg" alt="Profile image">
+                            <img src="{{ url_for('static', filename='/images/profile.jpg') }}" alt="Profile image">
                         </div>
                         <div class="profile-info">
                             <div class="greeting">Welcome Back!</div>

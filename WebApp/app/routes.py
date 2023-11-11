@@ -60,8 +60,6 @@ def init_routes(app):
             # Extract the username and password from form data
             username = request.form['username']
             password = request.form['password']
-
-            print("submitted login:", username, password)
             
             # Use username to find user 
             user = User.query.filter_by(username=username).first()

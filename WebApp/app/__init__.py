@@ -13,11 +13,9 @@ def set_dirs(static, template):
     static_dir = static
     template_dir = template
     
-    print("Setting Dirs:", template_dir, static_dir)
     return
     
 def create_app(config_object='config.Config'):
-    print("Creating Flask, Dirs:", template_dir, static_dir)
     app = Flask(__name__, template_folder=template_dir, static_folder=static_dir)
     app.config.from_object(config_object)
 
