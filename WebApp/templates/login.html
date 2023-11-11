@@ -5,32 +5,53 @@ Login VQA
 {% endblock %}
 
 {% block additional_head %}
-<link rel="stylesheet" href="{{ url_for('static', filename='./css/Login.css')}}">
+<!-- <link rel="stylesheet" href="{{ url_for('static', filename='./css/Login.css')}}"> -->
 {% endblock %}
 
 {% block header %}
-<h1 align="center">Login VQA Chat-App</h1>
+<!-- Noting needed -->
 {% endblock %}
 
 {% block content %}
-<div class="container">
-    <form method="post">
-        <div class="txt_field">
-            <input type="text" name="username" required>
-            <span></span>
-            <label>Username</label>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header text-center">
+                    <img src="{{ url_for('static', filename='/images/logo.png')}}" alt="Logo" class="img-fluid" style="max-width: 100px;">
+                    <h2>Login VQA Chat-App</h2>
+                </div>
+                <div class="card-body">
+                    <form method="post" action="/login">
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Username</label>
+                            <input type="text" class="form-control" name="username" placeholder="Enter username" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" class="form-control" name="password" placeholder="Password" required>
+                        </div>
+                        <div class="pass">Forgot Password?</div>
+                        <button type="submit" class="btn btn-primary" value="Login">Login</button>
+
+                        {% with messages = get_flashed_messages() %}
+                            {% if messages %}
+                                <div class="alert alert-danger mt-2">
+                                {% for message in messages %}
+                                    {{ message }}
+                                {% endfor %}
+                                </div>
+                            {% endif %}
+                        {% endwith %}
+                    </form>
+                </div>
+                <div class="card-footer text-center">
+                    <p>Don't have an account? <a href="{{ url_for('signup') }}">Sign up</a></p>
+                </div>
+            </div>
         </div>
-        <div class="txt_field">
-            <input type="password" name="password" required>
-            <span></span>
-            <label>Password</label>
-        </div>
-        <div class="pass">Forgot Password?</div>
-        <input type="submit" value="Login">
-        <div class="signup_link">
-            Not a member? <a href="{{ url_for('signup') }}">Signup</a>
-        </div>
-    </form>
+    </div>
+
 </div>
 {% endblock %}
 
