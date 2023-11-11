@@ -1,6 +1,47 @@
 # VQA Web-Application - FLASK 
 
-## Web Application Structure
+## Dependencies
+
+### Dependencies for flask
+* **flask:** ```conda install -c anaconda flask```
+* **flask-login:** ```conda install -c conda-forge flask-login```
+* **flask_sqlalchemy:** ```conda install -c conda-forge flask-sqlalchemy```
+* **flask_cors:** ```conda install -c conda-forge flask_cors```
+* **jinja2:** ```conda install -c anaconda jinja2```
+
+### Dependencies for VQA
+* **pytorch torchvision torchaudio:** ```conda install pytorch torchvision torchaudio pytorch-cuda=12.1 -c pytorch -c nvidia```
+* **transformers:** ```conda install -c huggingface transformers```
+* **PIL:**  ```conda install -c anaconda pillow```
+* **numpy:**  ```conda install numpy```  
+* **matplotlib:** ```matplotlib```
+
+## Setup DB and Run Run
+
+#### Windows - For first ever Run:
+```
+set FLASK_APP=app.py
+flask create-db
+```
+
+####  Linux or macOS - For first ever Run:
+
+```
+export FLASK_APP=app.py
+flask create-db
+```
+
+### Run the Web-App
+
+```
+$ flask --app main run
+Running on http://127.0.0.1:5000 (Press CTRL+C to quit)
+
+```
+
+## Developer Guideline for File Roles
+
+### Web Application Structure
 ```
 /VQA_WebApp
 |-- /app
@@ -26,44 +67,33 @@
 |-- config.py
 |-- main.py
 ```
-## Dependencies
 
-### Dependencies for flask
-* **flask:** ```conda install -c anaconda flask```
-* **flask-login:** ```conda install -c conda-forge flask-login```
-* **flask_sqlalchemy:** ```conda install -c conda-forge flask-sqlalchemy```
-* **flask_cors:** ```conda install -c conda-forge flask_cors```
-* **jinja2:** ```conda install -c anaconda jinja2```
+### Description of each app Files 
 
-### Dependencies for VQA
-* **pytorch torchvision torchaudio:** ```conda install pytorch torchvision torchaudio pytorch-cuda=12.1 -c pytorch -c nvidia```
-* **transformers:** ```conda install -c huggingface transformers```
-* **PIL:**  ```conda install -c anaconda pillow```
-* **numpy:**  ```conda install numpy```  
-* **matplotlib:** ```matplotlib```
+#### `main.py`
+- **Role**: Entry point of the Flask application.
+- **Scaling**: Maintain for application-wide initializations. Rarely modified.
 
-## Setup DB for First Ever Run
+#### `/app/__init__.py`
+- **Role**: Initializes the Flask app and binds components like routes, database, and extensions.
+- **Scaling**: Import and register new modules or Blueprints here.
 
-#### Windows
-```
-set FLASK_APP=app.py
-flask create-db
-```
+#### `/app/models.py`
+- **Role**: Contains database models for SQLAlchemy.
+- **Scaling**: Define new or update existing models as data requirements evolve.
 
-####  Linux or macOS:
+#### `/app/routes.py`
+- **Role**: Houses route definitions and view functions.
+- **Scaling**: Add new routes for additional pages and features. Consider splitting into multiple files or using Blueprints for organization.
 
-```
-export FLASK_APP=app.py
-flask create-db
-```
+#### `/app/extensions.py`
+- **Role**: Initializes and configures Flask extensions.
+- **Scaling**: Add new extensions or modify existing ones as needed. Keep focused on extensions.
 
-## Run the Web-App
+#### `config.py`
+- **Role**: Defines configuration settings for various environments.
+- **Scaling**: Update or add new configurations for new features requiring environment-specific settings.
 
-```
-$ flask --app main run
-Running on http://127.0.0.1:5000 (Press CTRL+C to quit)
-
-```
 
 ## Flask Reference
 * Quick start (offl): https://flask.palletsprojects.com/en/3.0.x/quickstart/
