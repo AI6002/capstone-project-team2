@@ -1,6 +1,20 @@
-const selectImage = document.querySelector('#upload');
+const selectImage = document.querySelector('#select');
 const inputFile = document.querySelector('#file');
 const imgArea = document.querySelector('.img-area');
+
+document.addEventListener('DOMContentLoaded', function () {
+    const urlParams = new URLSearchParams(window.location.search);
+    const capturedImage = urlParams.get('image');
+    if (capturedImage) {
+        // Append the captured image to the imgArea container
+        const imgArea = document.querySelector('.img-area');
+        const img = document.createElement('img');
+        img.src = capturedImage;
+        imgArea.innerHTML = '';  // Clear existing content
+        imgArea.appendChild(img);
+        imgArea.classList.add('active');
+    }
+});
 
 selectImage.addEventListener('click', function () {
 	inputFile.click();

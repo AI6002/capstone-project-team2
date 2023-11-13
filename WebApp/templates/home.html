@@ -52,8 +52,9 @@ VQA Chat-App
                         <p>Image size must be less than <span>2MB</span></p>
                     </div>
                     <div class="button-wrapper text-center">
-                        <button class="btn btn-outline-primary" id="upload">Uplaod A Picture</button>
-                        <button class="btn btn-outline-primary" id="capture">Capture A Picture</button>
+                        <button class="btn btn-outline-primary" id="select">Select Picture</button>
+                        <button class="btn btn-outline-primary" id="capture" onclick="redirectToWebcam()">Capture Picture</button>
+                        <button class="btn btn-outline-primary" id="save">Save</button>
                     </div>
 
                 </div>
@@ -113,4 +114,12 @@ VQA Chat-App
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block additional_scripts %}
+<script language="JavaScript">
+    function redirectToWebcam() {
+        window.location.href = "{{ url_for('webcam') }}";
+    }
+</script>
 {% endblock %}

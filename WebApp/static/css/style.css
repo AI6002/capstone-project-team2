@@ -25,7 +25,7 @@ body {
 }
 ::-webkit-scrollbar-thumb{
     background:#3f3f5d;
-    border-radius:8px
+    border-radius:0.5em
 }
 ::-webkit-scrollbar-thumb:hover{
     background:#555
@@ -43,8 +43,9 @@ body {
     border-radius: 0.5em;
     padding: 0.5em 1.25em;
     margin: auto;
-    max-width: 37.5em;
-    height: 45em;
+    max-width: 50em;
+    width: 35em;
+    height: 48em;
     box-shadow: 0 0 1.25em 0.5em #c3c3c333;
 }
 
@@ -100,15 +101,16 @@ body {
     cursor: pointer;
     border:1px solid #3f3f5d
 }
-#chat-bot .chat-bot-wrapper .card .button-wrapper .btn.btn-outline-primary{
-    border-radius:0.5em;
-    padding:0.625em;
-    background:#3f3f5d;
-    color:#fff;
-    cursor: pointer;
-    border:1px solid #3f3f5d
-}
 
+#chat-bot .chat-bot-wrapper .card .button-wrapper #save{
+    padding: 10px 15px;
+    background:#3f3f5d;
+    color: #fff;
+    border-radius: 50%;
+    font-size: 16px;
+    position: relative;
+}
+   
 .btn.btn-outline-primary:hover {    /* This function is for the hover on the button which means if you go near button there will be slight color change.*/
     filter: brightness(0.9);
 }
@@ -214,7 +216,6 @@ body {
 /* This class is for image upload*/
 .image-upload {
     position :center;
-	max-width: 400px;
 	width: 100%;
 	background: #fff;
 	padding: 30px;
@@ -279,3 +280,51 @@ body {
 }
 
 /* Some custom class */
+
+/* This one is for the Webcam.html */
+
+#imagepage .webcointainer .row .col-lg-6 .text{
+    color: #fff;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+#imagepage .webcointainer .headdisplay{
+    font-size: 2.5em;
+    font-weight: bold;
+    color: #fff;
+
+}
+
+#imagepage .webcointainer .row .col-lg-6 #take_snapshot{
+    border-radius:0.5em;
+    padding:0.625em;
+    background:#3f3f5d;
+    color:#fff;
+    cursor: pointer;
+    border:1px solid #3f3f5d
+}
+
+#imagepage .webcointainer .row .col-lg-6 #take_snapshot:hover {    /* This function is for the hover on the button which means if you go near button there will be slight color change.*/
+    filter: brightness(0.9);
+}
+
+#imagepage .webcointainer .row .col-lg-6 #take_snapshot:active {             /* This function is for the changing of the button when you click button moves so that user knows button is clicked.*/
+    transform: translateY(2px);
+}
+
+#imagepage .webcointainer .row .col-lg-6 .btn.btn-success{
+    border-radius:0.5em;
+    padding:0.625em;
+    background:#3f3f5d;
+    color:#fff;
+    cursor: pointer;
+    border:1px solid #3f3f5d
+}
+#imagepage .webcointainer .row .col-lg-6 .btn.btn-success:hover{
+    filter: brightness(0.9);
+}
+
+#imagepage .webcointainer .row .col-lg-6 .btn.btn-success:active{
+    transform: translateY(2px);
+}

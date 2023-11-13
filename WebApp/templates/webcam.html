@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block title %}
+Webcam Image Capture
+{% endblock %}
+
+{% block additional_head %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+{% endblock %}
+
+{% block header %}
+{% endblock %}
+
+{% block content %}
+<div id =imagepage>
+    <div class="webcointainer">
+        <h1 align="center" class="headdisplay">Welcome to VQA Image Capture</h1>
+        <div class="row">
+            <div class="col-lg-6" align="center">
+                <label class="text">Capture live photo</label>
+                <div id="my_camera" class="pre_capture_frame"></div>
+                <input type="hidden" name="captured_image_data" id="captured_image_data">
+                <br>
+                <input type="button" class="btn btn-info btn-round btn-file" id ="take_snapshot" value="Take Snapshot" onClick="take_snapshot()">
+            </div>
+            <div class="col-lg-6" align="center">
+                <label class="text">Result</label>
+                <div id="results">
+                    <img style="width: 500px;" class="after_capture_frame" src="{{ url_for('static', filename='images/profile.jpg') }}">
+                </div>
+                <br>
+                <button type="button" class="btn btn-success" onclick="saveSnap()">Save Picture</button>
+            </div>
+        </div>
+    </div><!-- end row -->
+</div><!-- end container -->
+{% endblock %}
+
+{% block additional_scripts %}
+<script language="JavaScript">
+    // Configure a few settings and attach camera 250x187
+    Webcam.set({
+        width: 350,
+        height: 287,
+        image_format: 'jpeg',
+        jpeg_quality: 90
+    });
+    Webcam.attach('#my_camera');
+
+    var capturedImageData;
+
+    function take_snapshot() {
+        Webcam.snap(function (data_uri) {
+            document.getElementById('results').innerHTML =
+                '<img class="after_capture_frame" src="' + data_uri + '"/>';
+            capturedImageData = data_uri;  // Store captured image data
+        });
+    }
+
+    function saveSnap() {
+        var base64data = capturedImageData;  // Use the stored image data
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: "/capture_image_upload",
+            data: { image: base64data },
+            success: function (data) {
+                alert(data.message);
+                Webcam.reset();
+
+                // Redirect to the homepage after successfully saving the picture
+                if (data.success) {
+                    window.location.href = "/home?image=" + encodeURIComponent(capturedImageData);
+                }
+            },
+            error: function (error) {
+                console.error("Error uploading image:", error);
+            }
+        });
+    }
+    
+</script>
+{% endblock %}
