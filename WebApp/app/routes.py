@@ -3,6 +3,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, logout_user, login_required, current_user
 from .extensions import db
 from .models import User
+from .vqa_models import process_vqa
 
 def init_routes(app):
     # Handle Landing Page
@@ -123,3 +124,39 @@ def init_routes(app):
         except Exception as e:
             print("Error processing image:", e)
             return jsonify({'message': 'Error processing image. Please try again.', 'success': False, 'authenticated': False})
+        
+    
+    
+    @app.route('/vqa', methods=['GET', 'POST'])
+    def vqa():
+        try:
+            if request.method == 'POST':
+                # Ensure an image is provided
+                if 'image' not in request.files:
+                    flash('No image file provided', 'error')
+                    return redirect(request.url)
+
+                image = request.files['image']
+                question = request.form.get('question', '')
+
+                # Check if the image file is valid
+                if image.filename == '':
+                    flash('No selected image', 'error')
+                    return redirect(request.url)
+
+                # Process VQA
+                answer = process_vqa(image, question)
+
+                # Render template with the answer
+                return render_template('vqa_result.html', answer=answer)
+
+            # GET request, render the VQA form
+            return render_template('vqa_form.html')
+
+        except Exception as e:
+            # Log the exception for debugging purposes
+            app.logger.error('Error in VQA processing: %s', str(e))
+
+            # Inform the user of the error
+            flash('An error occurred while processing your request. Please try again.', 'error')
+            return redirect(url_for('vqa'))
