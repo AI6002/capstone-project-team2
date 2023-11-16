@@ -99,13 +99,11 @@ def init_routes(app):
     @login_required
     def upload_image():
         if 'image' not in request.files:
-            flash('No image file provided', 'error')
-            return redirect(request.url)
+            return jsonify({'error': 'No image file provided'}), 400
 
         image = request.files['image']
         if image.filename == '':
-            flash('No selected image', 'error')
-            return redirect(request.url)
+            return jsonify({'error': 'No image selected - Name issue'}), 400
 
         # Get the Current_user id, create session data dir for user
         user_id = current_user.id
@@ -122,41 +120,21 @@ def init_routes(app):
         current_user.image_path = image_path
         db.session.commit()
         
-        return 'Image successfully submitted, ask anything about this image'
+        return jsonify({'message': 'Image successfully submitted, ask anything about this image'}) 
     
-    @app.route('/vqa', methods=['GET', 'POST'])
-    def vqa():
+    @app.route('/question', methods=['GET', 'POST'])
+    @login_required
+    def ask_question():
+        question = request.form.get('question', '')
+        if current_user.image_path is None:
+            return jsonify({'error': 'No image submitted'}), 400
+        
         try:
-            if request.method == 'POST':
-                # Ensure an image is provided
-                if 'image' not in request.files:
-                    flash('No image file provided', 'error')
-                    return redirect(request.url)
-
-                image = request.files['image']
-                question = request.form.get('question', '')
-
-                # Check if the image file is valid
-                if image.filename == '':
-                    flash('No selected image', 'error')
-                    return redirect(request.url)
-
-                # Process VQA
-                answer = process_vqa(image, question)
-
-                # Render template with the answer
-                return render_template('vqa_result.html', answer=answer)
-
-            # GET request, render the VQA form
-            return render_template('vqa_form.html')
-
+            with open(current_user.image_path, 'rb') as img_file:
+                answer = process_vqa(img_file, question)
+                return jsonify({'answer': answer})
         except Exception as e:
-            # Log the exception for debugging purposes
-            app.logger.error('Error in VQA processing: %s', str(e))
-
-            # Inform the user of the error
-            flash('An error occurred while processing your request. Please try again.', 'error')
-            return redirect(url_for('vqa'))
+            return jsonify({'error': 'An error occurred while processing your request'}), 500
     
     # Error handler
     @app.errorhandler(500)
