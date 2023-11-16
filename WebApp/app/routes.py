@@ -90,24 +90,11 @@ def init_routes(app):
         logout_user()
         return redirect(url_for('login'))
 
-    # Error handler
-    @app.errorhandler(500)
-    def internal_server_error(e):
-        return render_template('error.html', error=str(e)), 500
-
-    # Command to create the database tables
-    @app.cli.command('create-db')
-    def create_db():
-        """Create the database."""
-        db.create_all()
-        print("Database Tables created.")
-    
     # Handling the Webcam.html page
     @app.route('/webcam')
     def webcam():
         return render_template('webcam.html')
-    
-    
+
     @app.route('/vqa', methods=['GET', 'POST'])
     def vqa():
         try:
@@ -141,3 +128,22 @@ def init_routes(app):
             # Inform the user of the error
             flash('An error occurred while processing your request. Please try again.', 'error')
             return redirect(url_for('vqa'))
+    
+    # Error handler
+    @app.errorhandler(500)
+    def internal_server_error(e):
+        return render_template('error.html', error=str(e)), 500
+
+    # Command to create the database tables
+    @app.cli.command('create-db')
+    def create_db():
+        """Create the database."""
+        db.create_all()
+        print("Database Tables created.")
+        
+    # Command to Clear the database
+    @app.cli.command('clear-db')
+    def clear_db():
+        """Clear the database."""
+        db.drop_all()
+        print("Database Tables are Cleared.")
