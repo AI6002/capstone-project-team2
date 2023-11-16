@@ -30,6 +30,10 @@ flask create-db
 export FLASK_APP=app.py
 flask create-db
 ```
+####  Clear Database if required during Schema changes
+```
+flask clear-db
+```
 
 ### Run the Web-App
 
