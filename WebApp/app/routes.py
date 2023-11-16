@@ -94,7 +94,36 @@ def init_routes(app):
     @app.route('/webcam')
     def webcam():
         return render_template('webcam.html')
+    
+    @app.route('/image', methods=['POST'])
+    @login_required
+    def upload_image():
+        if 'image' not in request.files:
+            flash('No image file provided', 'error')
+            return redirect(request.url)
 
+        image = request.files['image']
+        if image.filename == '':
+            flash('No selected image', 'error')
+            return redirect(request.url)
+
+        # Get the Current_user id, create session data dir for user
+        user_id = current_user.id
+        image_dir = os.path.join('session', user_id)
+        print("creating user session dir:", image_dir)
+        os.makedirs(image_dir, exist_ok=True)
+
+        # Save the Image for the user session
+        filename = image.filename
+        image_path = os.path.join(image_dir, filename)
+        image.save(image_path)
+
+        # Save the image path in the database for the current user
+        current_user.image_path = image_path
+        db.session.commit()
+        
+        return 'Image successfully submitted, ask anything about this image'
+    
     @app.route('/vqa', methods=['GET', 'POST'])
     def vqa():
         try:
