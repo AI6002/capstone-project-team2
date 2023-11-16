@@ -20,14 +20,14 @@
 
 #### Windows - For first ever Run:
 ```
-set FLASK_APP=app.py
+set FLASK_APP=main.py
 flask create-db
 ```
 
 ####  Linux or macOS - For first ever Run:
 
 ```
-export FLASK_APP=app.py
+export FLASK_APP=main.py
 flask create-db
 ```
 ####  Clear Database if required during Schema changes
