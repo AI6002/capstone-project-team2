@@ -1,9 +1,9 @@
 from flask import render_template, url_for, redirect, request, flash, jsonify
-from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, logout_user, login_required, current_user
 from .extensions import db
 from .models import User
 from .vqa_models import process_vqa
+import os
 
 def init_routes(app):
     # Handle Landing Page
@@ -32,20 +32,28 @@ def init_routes(app):
                 password = request.form['password']
                 confirm_password = request.form['confirm_password']
                 
+                # Check if Username pre-exists                
+                existing_user = User.query.filter_by(username=username).first()
+                
                 # Validate Pass code Confirmation
-                if password == confirm_password:
-                    # Assuming user is successfully registered
-                    hashed_password = generate_password_hash(password, method='sha256')
-
-                    new_user = User(username=username, email=email, password=hashed_password)
+                if existing_user:
+                    flash('Username already exists.')
+                    return redirect(url_for('signup'))
+                
+                elif password == confirm_password:
+   
+                    new_user = User(username=username, email=email)
+                    new_user.set_password(password)
+                    
                     db.session.add(new_user)
                     db.session.commit()
-                
+                    
                     flash('Successfully registered! Please log in.')
                     return redirect(url_for('login'))
                 else:
                     flash('Confirm Password do not match.')
-            
+                    return redirect(url_for('signup'))
+                
             except Exception as e:
                 # If there is any error, flash a message to the user
                 flash(str(e))
@@ -64,9 +72,9 @@ def init_routes(app):
             
             # Use username to find user 
             user = User.query.filter_by(username=username).first()
-            if user:
+            if user :
                 # Validate password
-                if check_password_hash(user.password, password):
+                if user.check_password(password):
                     login_user(user)
                     return redirect(url_for('home'))
                 else:
@@ -98,33 +106,6 @@ def init_routes(app):
     @app.route('/webcam')
     def webcam():
         return render_template('webcam.html')
-    
-    @app.route('/capture_image_upload', methods=['POST'])
-    def capture_image_upload():
-        try:
-            # Get the base64 data from the POST request
-            base64data = request.form.get('image')
-
-            # For demonstration purposes, let's just print the length of the data
-            print("Image data length:", len(base64data))
-
-            # Check if the user is authenticated
-            authenticated = current_user.is_authenticated
-
-            # Indicate success with a JSON response
-            response_data = {'message': 'Image successfully captured and saved!', 'success': True, 'authenticated': authenticated}
-
-            if authenticated:
-                response_data['redirect'] = url_for('home')
-            else:
-                response_data['redirect'] = url_for('login')
-
-            return jsonify(response_data)
-
-        except Exception as e:
-            print("Error processing image:", e)
-            return jsonify({'message': 'Error processing image. Please try again.', 'success': False, 'authenticated': False})
-        
     
     
     @app.route('/vqa', methods=['GET', 'POST'])
