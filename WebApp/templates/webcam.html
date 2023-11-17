@@ -5,7 +5,6 @@ Webcam Image Capture
 {% endblock %}
 
 {% block additional_head %}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link rel="stylesheet" href="{{ url_for('static', filename='./css/cam_pg.css')}}">
 {% endblock %}
 
@@ -38,6 +37,8 @@ Webcam Image Capture
 {% endblock %}
 
 {% block additional_scripts %}
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.24/webcam.js"></script>
+
 <script language="JavaScript">
     // Configure a few settings and attach camera 250x187
     Webcam.set({
