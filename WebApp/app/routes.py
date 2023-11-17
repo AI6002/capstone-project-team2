@@ -94,43 +94,22 @@ def init_routes(app):
     @app.route('/webcam')
     def webcam():
         return render_template('webcam.html')
-    
-    @app.route('/capture_image_upload', methods=['POST'])
-    def capture_image_upload():
-        try:
-            # Get the base64 data from the POST request
-            base64data = request.form.get('image')
-
-            # For demonstration purposes, let's just print the length of the data
-            print("Image data length:", len(base64data))
-
-            # Check if the user is authenticated
-            authenticated = current_user.is_authenticated
-
-            # Indicate success with a JSON response
-            response_data = {'message': 'Image successfully captured and saved!', 'success': True, 'authenticated': authenticated}
-
-            if authenticated:
-                response_data['redirect'] = url_for('home')
-            else:
-                response_data['redirect'] = url_for('login')
-
-            return jsonify(response_data)
-
-        except Exception as e:
-            print("Error processing image:", e)
-            return jsonify({'message': 'Error processing image. Please try again.', 'success': False, 'authenticated': False})
-
-    
+        
     @app.route('/image', methods=['POST'])
     @login_required
     def upload_image():
+        print("Image submit: POST received")
+        
         if 'image' not in request.files:
             return jsonify({'error': 'No image file provided'}), 400
+        else:
+            print("Image submit: image field found")
 
         image = request.files['image']
         if image.filename == '':
             return jsonify({'error': 'No image selected - Name issue'}), 400
+        else:
+            print("Image submit: image Name exist:", image.filename)
 
         # Get the Current_user id, create session data dir for user
         user_id = current_user.id
