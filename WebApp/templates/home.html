@@ -10,110 +10,112 @@ VQA Chat-App
 
 {% block content %}
 
-<div id="chat-bot">
-    <div class="container">
-        <div class="chat-bot-wrapper">
-            <div class="card">
-                <div class="top-section">
-                    <div class="profile">
-                        <div class="profile-image">
-                            <img src="{{ url_for('static', filename='/images/profile.jpg') }}" alt="Profile image">
-                        </div>
-                        <div class="profile-info">
-                            <div class="greeting">Welcome Back!</div>
-                            <div class="name">{{ username }}</div>
-                        </div>
-                    </div>
-                    <!-- top section icon -->
-                    <div class="profile-icon">
-                        <div class="bell-icon">
-                            <i class="fa-solid fa-bell"></i>
-                        </div>
-                        <div class="more-icon">
-                            <div class="dropdown">
-                                <button class="btn btn-secondary bg-transparent border-0 dropdown-toggle" type="button"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="fa-solid fa-ellipsis-vertical"></i>
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="{{ url_for('logout') }}">Logout</a></li>
-                                </ul>
-                            </div>
 
-                        </div>
-                    </div>
+<div class="chat-bot-wrapper">
+    <div class="card">
 
+        <div class="top-section">
+            <div class="profile">
+                <div class="profile-image">
+                    <img src="{{ url_for('static', filename='/images/profile.jpg') }}" alt="Profile image">
                 </div>
-                <!-- Image Upload Section -->
-                <div class="image-upload">
-                    <input type="file" id="file" accept="image/*" hidden>
-                    <div class="img-area" data-img="">
-                        <h3>Upload Image</h3>
-                        <p>Image size must be less than <span>2MB</span></p>
-                    </div>
-                    <div class="button-wrapper text-center">
-                        <button class="btn btn-outline-primary" id="select">Select Picture</button>
-                        <button class="btn btn-outline-primary" id="capture" onclick="redirectToWebcam()">Capture Picture</button>
-                        <button class="btn btn-outline-primary" id="save">Save</button>
-                    </div>
-
-                </div>
-
-                <!-- Message between Sender and Receiver -->
-                <div class="card-body">
-                    <div class="sender-mssg row">
-                        <div class="sender-image col-md-3">
-                            <img src="./static/images/profile.jpg" alt="Sender Image">
-                        </div>
-                        <div class="sender-text col-md-9">
-                            Image Uploaded Successfully.
-                            Ask me Anything.
-                        </div>
-                    </div>
-
-                    <div class="recever-mssg">
-                        <div class="message">
-                            Receiver Message
-                        </div>
-                        <div class="tick-image">
-                            <i class="fa-regular fa-circle-check"></i>
-                        </div>
-                    </div>
-
-                    <div class="sender-mssg row">
-                        <div class="sender-image col-md-3">
-                            <img src="./static/images/profile.jpg" alt="Sender Image">
-                        </div>
-                        <div class="sender-text col-md-9">
-                            Sender Message
-                            Sender Message
-
-                        </div>
-                    </div>
-
-                    <div class="recever-mssg">
-                        <div class="message">
-                            Receiver Message
-                        </div>
-                        <div class="tick-image">
-                            <i class="fa-regular fa-circle-check"></i>
-                        </div>
-                    </div>
-
-                </div>
-
-                <!-- text input form -->
-                <div>
-                    <form class="chat-input-form">
-                        <input type="text" class="chat-input" required placeholder="Type here ..." />
-                        <button type="submit" class="button send-button">Send</button>
-                    </form>
-                    <button class="button clear-chat-button">Clear Chat</button>
+                <div class="profile-info">
+                    <div class="greeting">Welcome Back!</div>
+                    <div class="name">{{ username }}</div>
                 </div>
             </div>
+            <!-- top section icon -->
+            <div class="profile-icon">
+                <div class="bell-icon">
+                    <i class="fa-solid fa-bell"></i>
+                </div>
+                <div class="more-icon">
+                    <div class="dropdown">
+                        <button class="btn btn-secondary bg-transparent border-0 dropdown-toggle" type="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fa-solid fa-ellipsis-vertical"></i>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{{ url_for('logout') }}">Logout</a></li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+
+        <!-- Image Upload Section -->
+        <div class="image-upload">
+            <input type="file" id="file" accept="image/*" hidden>
+            <div class="img-area" data-img="">
+                <h3>Upload Image</h3>
+                <p>Image size must be less than <span>2MB</span></p>
+            </div>
+            <div class="button-wrapper text-center">
+                <button class="btn btn-outline-primary" id="select">Select Picture</button>
+                <button class="btn btn-outline-primary" id="capture" onclick="redirectToWebcam()">Capture Picture</button>
+                <button class="btn btn-outline-primary" id="save">Submit</button>
+            </div>
+
+        </div>
+        
+
+        <!-- Message between Sender and Receiver -->
+        <div class="card-body">
+            <div class="sender-mssg row">
+                <div class="sender-image col-md-3">
+                    <img src="./static/images/profile.jpg" alt="Sender Image">
+                </div>
+                <div class="sender-text col-md-9">
+                    Image Uploaded Successfully.
+                    Ask me Anything.
+                </div>
+            </div>
+
+            <div class="recever-mssg">
+                <div class="message">
+                    Receiver Message
+                </div>
+                <div class="tick-image">
+                    <i class="fa-regular fa-circle-check"></i>
+                </div>
+            </div>
+
+            <div class="sender-mssg row">
+                <div class="sender-image col-md-3">
+                    <img src="./static/images/profile.jpg" alt="Sender Image">
+                </div>
+                <div class="sender-text col-md-9">
+                    Sender Message
+                    Sender Message
+
+                </div>
+            </div>
+
+            <div class="recever-mssg">
+                <div class="message">
+                    Receiver Message
+                </div>
+                <div class="tick-image">
+                    <i class="fa-regular fa-circle-check"></i>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- text input form -->
+        <div>
+            <form class="chat-input-form">
+                <input type="text" class="chat-input" required placeholder="Type here ..." />
+                <button type="submit" class="button send-button">Send</button>
+            </form>
+            <button class="button clear-chat-button">Clear Chat</button>
         </div>
     </div>
 </div>
+
 {% endblock %}
 
 {% block additional_scripts %}

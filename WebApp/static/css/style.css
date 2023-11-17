@@ -31,13 +31,16 @@ body {
     background:#555
 }
 
-#chat-bot .chat-bot-wrapper{
+/* main page wrapper and card styles */
+
+.chat-bot-wrapper{
     display:flex;
     align-items:center;
     justify-content:center;
     height:100vh
 }
-#chat-bot .chat-bot-wrapper .card{
+
+.chat-bot-wrapper .card{
     background: #15202b;
     font-family: 'Roboto', sans-serif;
     border-radius: 0.5em;
@@ -49,51 +52,58 @@ body {
     box-shadow: 0 0 1.25em 0.5em #c3c3c333;
 }
 
-#chat-bot .chat-bot-wrapper .card .top-section{
+.chat-bot-wrapper .card .top-section{
     display:flex;
     align-items:center;
     justify-content:space-between
 }
-#chat-bot .chat-bot-wrapper .card .top-section .profile{
+
+.chat-bot-wrapper .card .top-section .profile{
     display:flex;
     align-items:center;
     gap:10px
 }
-#chat-bot .chat-bot-wrapper .card .top-section .profile .profile-image{
+
+.chat-bot-wrapper .card .top-section .profile .profile-image{
     width:50px;
     height:50px;
     overflow:hidden;
     border-radius:50%
 }
 
-#chat-bot .chat-bot-wrapper .card .top-section .profile .profile-info {
+
+.chat-bot-wrapper .card .top-section .profile .profile-info {
     text-align: left;
     font-weight: bold;
     margin-bottom: 1em;
     color: #fff;
 }
 
-#chat-bot .chat-bot-wrapper .card .top-section .profile .profile-image img{
+
+.chat-bot-wrapper .card .top-section .profile .profile-image img{
     width:100%;
     height:100%;
     -o-object-fit:cover;
     object-fit:cover
 }
-#chat-bot .chat-bot-wrapper .card .top-section .profile-icon{
+
+.chat-bot-wrapper .card .top-section .profile-icon{
     display:flex;
     align-items:center;
     gap:10px
 }
-#chat-bot .chat-bot-wrapper .card .top-section .profile-icon .bell-icon,#chat-bot .chat-bot-wrapper .card .top-section .profile-icon .more-icon{
+
+.chat-bot-wrapper .card .top-section .profile-icon .bell-icon, .chat-bot-wrapper .card .top-section .profile-icon .more-icon{
     color: #fff;
     cursor:pointer
 }
 
-#chat-bot .chat-bot-wrapper .card .button-wrapper{
+
+.chat-bot-wrapper .card .button-wrapper{
     padding:1px
 }
 
-#chat-bot .chat-bot-wrapper .card .button-wrapper .btn.btn-outline-primary{
+.chat-bot-wrapper .card .button-wrapper .btn.btn-outline-primary{
     border-radius:0.5em;
     padding:0.625em;
     background:#3f3f5d;
@@ -102,7 +112,7 @@ body {
     border:1px solid #3f3f5d
 }
 
-#chat-bot .chat-bot-wrapper .card .button-wrapper #save{
+.chat-bot-wrapper .card .button-wrapper #save{
     padding: 10px 15px;
     background:#3f3f5d;
     color: #fff;
@@ -111,44 +121,41 @@ body {
     position: relative;
 }
    
-.btn.btn-outline-primary:hover {    /* This function is for the hover on the button which means if you go near button there will be slight color change.*/
-    filter: brightness(0.9);
-}
-
-.btn.btn-outline-primary:active {             /* This function is for the changing of the button when you click button moves so that user knows button is clicked.*/
-    transform: translateY(2px);
-}
- 
-#chat-bot .chat-bot-wrapper .card .card-body{
+.chat-bot-wrapper .card .card-body{
     display:flex;
     flex-direction:column;
     height:500px;
     overflow:auto
 }
-#chat-bot .chat-bot-wrapper .card .card-body .sender-mssg{
+
+.chat-bot-wrapper .card .card-body .sender-mssg{
     gap:4px
 }
-#chat-bot .chat-bot-wrapper .card .card-body .sender-mssg .sender-image{
+
+.chat-bot-wrapper .card .card-body .sender-mssg .sender-image{
     width:40px;
     height:40px;
     overflow:hidden;
     border-radius:50%;
     padding:0px
 }
-#chat-bot .chat-bot-wrapper .card .card-body .sender-mssg .sender-image img{
+
+.chat-bot-wrapper .card .card-body .sender-mssg .sender-image img{
     width:100%;
     height:100%;
     -o-object-fit:cover;
     object-fit:cover
 }
-#chat-bot .chat-bot-wrapper .card .card-body .sender-mssg .sender-text{
+
+.chat-bot-wrapper .card .card-body .sender-mssg .sender-text{
     border:2px solid #c8bcbc;
     border-radius:0px 12px 12px 12px;
     padding:12px;
     margin-bottom: 0.31em;
     color:#fff
 }
-#chat-bot .chat-bot-wrapper .card .card-body .recever-mssg{
+
+.chat-bot-wrapper .card .card-body .recever-mssg{
     text-align:end;
     display:flex;
     align-items:end;
@@ -156,17 +163,20 @@ body {
     margin-bottom: 0.31em;
     gap:8px
 }
-#chat-bot .chat-bot-wrapper .card .card-body .recever-mssg .message{
+
+.chat-bot-wrapper .card .card-body .recever-mssg .message{
     border:2px solid #c8bcbc;
     border-radius:12px 12px 0px 12px;
     padding:12px;
     margin-bottom: 0.31em;
     color:#fff
 }
-#chat-bot .chat-bot-wrapper .card .card-body .recever-mssg .tick-image{
+
+.chat-bot-wrapper .card .card-body .recever-mssg .tick-image{
     color:blue
 }
-/*# sourceMappingURL=style.css.map */
+
+
 
 .chat-input-form {
     display: flex;
