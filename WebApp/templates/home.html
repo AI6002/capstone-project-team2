@@ -49,15 +49,19 @@ VQA Chat-App
 
         <!-- Image Upload Section -->
         <div class="image-upload">
-            <input type="file" id="file" accept="image/*" hidden>
+            <form id="imageForm" method="post" enctype="multipart/form-data">
+                <input type="file" id="file" accept="image/*" hidden>
+                <input type="submit" value="Submit Image" hidden>
+            </form>
+            
             <div class="img-area" data-img="">
-                <h3>Upload Image</h3>
-                <p>Image size must be less than <span>2MB</span></p>
+                <h3>Capture or Upload Image</h3>
+                <p>Use Select-Img or Capture-Img and <span>SUBMIT</span></p>
             </div>
             <div class="text-center">
-                <button class="btn btn-outline-primary" id="select">Select Picture</button>
-                <button class="btn btn-outline-primary" id="capture" onclick="redirectToWebcam()">Capture Picture</button>
-                <button class="btn btn-outline-primary" id="save">Submit</button>
+                <button class="btn btn-outline-primary" id="select">Select-Img</button>
+                <button class="btn btn-outline-primary" id="capture" onclick="redirectToWebcam()">Capture-Img</button>
+                <button class="btn btn-outline-primary" id="sub_img">Submit</button>
             </div>
 
         </div>
@@ -65,45 +69,10 @@ VQA Chat-App
 
         <!-- Message between Sender and Receiver -->
         <div class="card-body">
-            <div class="sender-mssg row">
-                <div class="sender-image col-md-3">
-                    <img src="./static/images/profile.jpg" alt="Sender Image">
-                </div>
-                <div class="sender-text col-md-9">
-                    Image Uploaded Successfully.
-                    Ask me Anything.
-                </div>
+            <div id="msg_section">
+
+
             </div>
-
-            <div class="recever-mssg">
-                <div class="message">
-                    Receiver Message
-                </div>
-                <div class="tick-image">
-                    <i class="fa-regular fa-circle-check"></i>
-                </div>
-            </div>
-
-            <div class="sender-mssg row">
-                <div class="sender-image col-md-3">
-                    <img src="./static/images/profile.jpg" alt="Sender Image">
-                </div>
-                <div class="sender-text col-md-9">
-                    Sender Message
-                    Sender Message
-
-                </div>
-            </div>
-
-            <div class="recever-mssg">
-                <div class="message">
-                    Receiver Message
-                </div>
-                <div class="tick-image">
-                    <i class="fa-regular fa-circle-check"></i>
-                </div>
-            </div>
-
         </div>
 
         <!-- text input form -->
@@ -120,6 +89,8 @@ VQA Chat-App
 {% endblock %}
 
 {% block additional_scripts %}
+<script src="{{ url_for('static', filename='./js/home.js') }}"></script>
+
 <script language="JavaScript">
     function redirectToWebcam() {
         window.location.href = "{{ url_for('webcam') }}";

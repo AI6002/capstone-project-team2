@@ -40,6 +40,45 @@ inputFile.addEventListener('change', function () {
 	}
 })
 
+
+function add_bot_message(msg) {
+    // Create the main div with class 'sender-mssg row'
+    var newDiv = $('<div class="sender-mssg row"></div>');
+
+    // Create the sender-image div with class 'col-md-3' and append an image to it
+    var senderImageDiv = $('<div class="sender-image col-md-3"></div>');
+    var img = $('<img src="{{ url_for("static", filename="./images/profile.jpg") }}" alt="bot Image">');
+    senderImageDiv.append(img);
+
+    // Create the sender-text div with class 'col-md-9'
+    var senderTextDiv = $('<div class="sender-text col-md-9"></div>');
+    senderTextDiv.text(msg);
+
+    // Append senderImageDiv and senderTextDiv to the main div
+    newDiv.append(senderImageDiv);
+    newDiv.append(senderTextDiv);
+
+    // Append the new div to the parent element
+    $('#msg_section').append(newDiv);
+}
+
+
+function add_user_message(msg) {
+    // Create the main div with class 'sender-mssg row'
+    var newDiv = $('<div class="recever-mssg"></div>');
+
+    // Create the user-text div
+    var userTextDiv = $('<div class="message"></div>');
+    userTextDiv.text(msg);
+
+    // Append userTextDiv to the main div
+    newDiv.append(userTextDiv);
+
+    // Append the new div to the parent element
+    $('#msg_section').append(newDiv);
+}
+
+
 // Handle Image Upload
 $('#imageForm').submit(function(e) {
 	e.preventDefault();
@@ -50,10 +89,10 @@ $('#imageForm').submit(function(e) {
 		contentType: false,
 		processData: false,
 		success: function(response) {
-			$('#answerSection').html('Image successfully submitted, ask anything about this image');
+			add_bot_message(response.message)
 		},
 		error: function(response) {
-			$('#answerSection').html(response.responseText);
+			add_bot_message(response.error)
 		}
 	});
 });
