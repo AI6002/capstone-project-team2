@@ -60,25 +60,7 @@ Webcam Image Capture
     }
 
     function saveSnap() {
-        var base64data = capturedImageData;  // Use the stored image data
-        $.ajax({
-            type: "POST",
-            dataType: "json",
-            url: "/capture_image_upload",
-            data: { image: base64data },
-            success: function (data) {
-                alert(data.message);
-                Webcam.reset();
-
-                // Redirect to the homepage after successfully saving the picture
-                if (data.success) {
-                    window.location.href = "/home?image=" + encodeURIComponent(capturedImageData);
-                }
-            },
-            error: function (error) {
-                console.error("Error uploading image:", error);
-            }
-        });
+        window.location.href = "/home?image=" + encodeURIComponent(capturedImageData);
     }
     
 </script>
