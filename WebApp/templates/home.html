@@ -24,8 +24,9 @@ VQA Chat-App
                     <div class="name">{{ username }}</div>
                 </div>
             </div>
+
             <!-- top section icon -->
-            <div class="profile-icon">
+            <div class="user-menu">
                 <div class="bell-icon">
                     <i class="fa-solid fa-bell"></i>
                 </div>
@@ -53,14 +54,14 @@ VQA Chat-App
                 <h3>Upload Image</h3>
                 <p>Image size must be less than <span>2MB</span></p>
             </div>
-            <div class="button-wrapper text-center">
+            <div class="text-center">
                 <button class="btn btn-outline-primary" id="select">Select Picture</button>
                 <button class="btn btn-outline-primary" id="capture" onclick="redirectToWebcam()">Capture Picture</button>
                 <button class="btn btn-outline-primary" id="save">Submit</button>
             </div>
 
         </div>
-        
+
 
         <!-- Message between Sender and Receiver -->
         <div class="card-body">
@@ -106,12 +107,12 @@ VQA Chat-App
         </div>
 
         <!-- text input form -->
-        <div>
+        <div class="mb-2 mt-2">
             <form class="chat-input-form">
                 <input type="text" class="chat-input" required placeholder="Type here ..." />
-                <button type="submit" class="button send-button">Send</button>
+                <button type="submit" class="btn btn-lg btn-info">Send</button>
             </form>
-            <button class="button clear-chat-button">Clear Chat</button>
+            <button type="button" class="mt-2 btn btn-warning">Clear Chat</button>
         </div>
     </div>
 </div>
