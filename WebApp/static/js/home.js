@@ -39,3 +39,41 @@ inputFile.addEventListener('change', function () {
 		alert("Image size more than 2MB");
 	}
 })
+
+// Handle Image Upload
+$('#imageForm').submit(function(e) {
+	e.preventDefault();
+	$.ajax({
+		type: 'POST',
+		url: '/image',
+		data: new FormData(this),
+		contentType: false,
+		processData: false,
+		success: function(response) {
+			$('#answerSection').html('Image successfully submitted, ask anything about this image');
+		},
+		error: function(response) {
+			$('#answerSection').html(response.responseText);
+		}
+	});
+});
+
+$("#sub_img").click(function(){
+	$('#imageForm').submit()
+});
+
+// Handle Question Asking
+$('#questionForm').submit(function(e) {
+	e.preventDefault();
+	$.ajax({
+		type: 'POST',
+		url: '/question',
+		data: $(this).serialize(),
+		success: function(response) {
+			$('#answerSection').html('Answer: ' + response.answer);
+		},
+		error: function(response) {
+			$('#answerSection').html(response.responseJSON.error);
+		}
+	});
+});
