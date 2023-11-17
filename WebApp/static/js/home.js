@@ -1,49 +1,50 @@
-const selectImage = document.querySelector('#select');
-const inputFile = document.querySelector('#file');
-const imgArea = document.querySelector('.img-area');
-
-document.addEventListener('DOMContentLoaded', function () {
+$(document).ready(function() {
     const urlParams = new URLSearchParams(window.location.search);
     const capturedImage = urlParams.get('image');
+
     if (capturedImage) {
-        // Append the captured image to the imgArea container
-        const imgArea = document.querySelector('.img-area');
-        const img = document.createElement('img');
-        img.src = capturedImage;
-        imgArea.innerHTML = '';  // Clear existing content
-        imgArea.appendChild(img);
-        imgArea.classList.add('active');
+        var imgArea = $('.img-area');
+
+        // Clear existing content and append new image
+        imgArea.empty();
+
+        // Create an image element and set its source
+        $('<img>', { src: capturedImage }).appendTo(imgArea);
+
+        // Add 'active' class
+        imgArea.addClass('active');
     }
 });
 
-selectImage.addEventListener('click', function () {
-	inputFile.click();
-})
+$("#btn_sel_img").click(function(){
+	$('#inp_img').click()
+});
 
-inputFile.addEventListener('change', function () {
-	const image = this.files[0]
-	if(image.size < 2000000) {
-		const reader = new FileReader();
-		reader.onload = ()=> {
-			const allImg = imgArea.querySelectorAll('img');
-			allImg.forEach(item=> item.remove());
-			const imgUrl = reader.result;
-			const img = document.createElement('img');
-			img.src = imgUrl;
-			imgArea.appendChild(img);
-			imgArea.classList.add('active');
-			imgArea.dataset.img = image.name;
+$('#inp_img').on('change', function() {
+	var image = this.files[0];
+
+	if (image.size < 2000000) {
+		var reader = new FileReader();
+		reader.onload = function() {
+			var imgArea = $('#img_area');
+			//Remove any existing image
+			imgArea.find('img').remove();
+
+			var imgUrl = reader.result;
+			var img = $('<img>').attr('src', imgUrl);
+			imgArea.append(img);
+			imgArea.show()
+			imgArea.data('img', image.name);
 		}
 		reader.readAsDataURL(image);
 	} else {
 		alert("Image size more than 2MB");
 	}
-})
-
+});
 
 function add_bot_message(msg) {
-    // Create the main div with class 'sender-mssg row'
-    var newDiv = $('<div class="sender-mssg row"></div>');
+    // Create the main div with class 'bot-msg row'
+    var newDiv = $('<div class="bot-msg row"></div>');
 
     // Create the sender-image div with class 'col-md-3' and append an image to it
     var senderImageDiv = $('<div class="sender-image col-md-3"></div>');
@@ -64,11 +65,11 @@ function add_bot_message(msg) {
 
 
 function add_user_message(msg) {
-    // Create the main div with class 'sender-mssg row'
-    var newDiv = $('<div class="recever-mssg"></div>');
+    // Create the main div with class 'user-mssg row'
+    var newDiv = $('<div class="user-msg"></div>');
 
     // Create the user-text div
-    var userTextDiv = $('<div class="message"></div>');
+    var userTextDiv = $('<div class="user-txt"></div>');
     userTextDiv.text(msg);
 
     // Append userTextDiv to the main div
@@ -79,9 +80,37 @@ function add_user_message(msg) {
 }
 
 
+$('#imageUploadForm').on('submit', function (e) {
+	e.preventDefault();
+
+	var formData = new FormData();
+	var imageFile = $('#imageInput')[0].files[0];
+	formData.append('image', imageFile);
+
+	$.ajax({
+		url: '/image',
+		type: 'POST',
+		data: formData,
+		contentType: false,
+		processData: false,
+		success: function (data) {
+			console.log('Image uploaded successfully');
+		},
+		error: function (error) {
+			console.error('Error uploading image');
+		}
+	});
+});
+
+
 // Handle Image Upload
 $('#imageForm').submit(function(e) {
 	e.preventDefault();
+
+	var formData = new FormData();
+	var imageFile = $('#inp_img')[0].files[0];
+	formData.append('image', imageFile);
+
 	$.ajax({
 		type: 'POST',
 		url: '/image',
@@ -97,7 +126,7 @@ $('#imageForm').submit(function(e) {
 	});
 });
 
-$("#sub_img").click(function(){
+$("#btn_sub_img").click(function(){
 	$('#imageForm').submit()
 });
 
