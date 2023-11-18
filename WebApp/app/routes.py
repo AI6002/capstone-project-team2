@@ -98,7 +98,6 @@ def init_routes(app):
     @app.route('/image', methods=['POST'])
     @login_required
     def upload_image():
-        print("Image submit: POST received")
         
         if 'image' not in request.files:
             return jsonify({'error': 'No image file provided'}), 400
@@ -112,7 +111,7 @@ def init_routes(app):
             print("Image submit: image Name exist:", image.filename)
 
         # Get the Current_user id, create session data dir for user
-        user_id = current_user.id
+        user_id = "user-"+str(current_user.id)
         image_dir = os.path.join('session', user_id)
         print("creating user session dir:", image_dir)
         os.makedirs(image_dir, exist_ok=True)

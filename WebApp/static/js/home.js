@@ -46,29 +46,32 @@ $(document).ready(function() {
 		}
 	});
 
-	
-	//submit image to the backend
-	$('#imageForm').submit(function(e) {
+
+	$('#imageForm').on('submit', function (e) {
 		e.preventDefault();
-	
+
 		var formData = new FormData();
 		var imageFile = $('#inp_img')[0].files[0];
 		formData.append('image', imageFile);
-	
+		
+		// Log the FormData object and the imageFile
+		console.log("Image File:", imageFile);
+
 		$.ajax({
-			type: 'POST',
 			url: '/image',
-			data: new FormData(this),
+			type: 'POST',
+			data: formData,
 			contentType: false,
 			processData: false,
-			success: function(response) {
-				add_bot_message(response.message)
+			success: function (response) {
+				add_bot_message(response.message);
 			},
-			error: function(response) {
-				add_bot_message(response.error)
+			error: function (error) {
+				add_bot_message(response.error);
 			}
 		});
 	});
+
 
 	// trigger image submission when submit button clicked
 	$("#btn_sub_img").click(function(){
@@ -91,43 +94,47 @@ $(document).ready(function() {
 		});
 	});
 
+
+	function add_bot_message(msg) {
+		// Create the main div with class 'bot-msg row'
+		var newDiv = $('<div class="bot-msg row"></div>');
+	
+		// Create the sender-image div with class 'col-md-3' and append an image to it
+		var senderImageDiv = $('<div class="sender-image col-md-3"></div>');
+	
+		var img = $('<img src="/static/images/profile.jpg" alt="bot Image">');
+		senderImageDiv.append(img);
+	
+		// Create the sender-text div with class 'col-md-9'
+		var senderTextDiv = $('<div class="sender-text col-md-9"></div>');
+		senderTextDiv.text(msg);
+	
+		// Append senderImageDiv and senderTextDiv to the main div
+		newDiv.append(senderImageDiv);
+		newDiv.append(senderTextDiv);
+	
+		// Append the new div to the parent element
+		$('#msg_section').append(newDiv);
+	}
+	
+	
+	function add_user_message(msg) {
+		// Create the main div with class 'user-mssg row'
+		var newDiv = $('<div class="user-msg"></div>');
+	
+		// Create the user-text div
+		var userTextDiv = $('<div class="user-txt"></div>');
+		userTextDiv.text(msg);
+	
+		// Append userTextDiv to the main div
+		newDiv.append(userTextDiv);
+	
+		// Append the new div to the parent element
+		$('#msg_section').append(newDiv);
+	}
+
 });
 
-function add_bot_message(msg) {
-    // Create the main div with class 'bot-msg row'
-    var newDiv = $('<div class="bot-msg row"></div>');
 
-    // Create the sender-image div with class 'col-md-3' and append an image to it
-    var senderImageDiv = $('<div class="sender-image col-md-3"></div>');
-    var img = $('<img src="{{ url_for("static", filename="./images/profile.jpg") }}" alt="bot Image">');
-    senderImageDiv.append(img);
-
-    // Create the sender-text div with class 'col-md-9'
-    var senderTextDiv = $('<div class="sender-text col-md-9"></div>');
-    senderTextDiv.text(msg);
-
-    // Append senderImageDiv and senderTextDiv to the main div
-    newDiv.append(senderImageDiv);
-    newDiv.append(senderTextDiv);
-
-    // Append the new div to the parent element
-    $('#msg_section').append(newDiv);
-}
-
-
-function add_user_message(msg) {
-    // Create the main div with class 'user-mssg row'
-    var newDiv = $('<div class="user-msg"></div>');
-
-    // Create the user-text div
-    var userTextDiv = $('<div class="user-txt"></div>');
-    userTextDiv.text(msg);
-
-    // Append userTextDiv to the main div
-    newDiv.append(userTextDiv);
-
-    // Append the new div to the parent element
-    $('#msg_section').append(newDiv);
-}
 
 
