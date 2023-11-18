@@ -1,7 +1,10 @@
 $(document).ready(function() {
+
+	// Check if there is image returned from webcam page 
     const urlParams = new URLSearchParams(window.location.search);
     const capturedImage = urlParams.get('image');
 
+	// If there is image passed from webcam page, then load it into image area
     if (capturedImage) {
         var imgArea = $('.img-area');
 
@@ -14,32 +17,80 @@ $(document).ready(function() {
         // Add 'active' class
         imgArea.addClass('active');
     }
-});
 
-$("#btn_sel_img").click(function(){
-	$('#inp_img').click()
-});
-
-$('#inp_img').on('change', function() {
-	var image = this.files[0];
-
-	if (image.size < 2000000) {
-		var reader = new FileReader();
-		reader.onload = function() {
-			var imgArea = $('#img_area');
-			//Remove any existing image
-			imgArea.find('img').remove();
-
-			var imgUrl = reader.result;
-			var img = $('<img>').attr('src', imgUrl);
-			imgArea.append(img);
-			imgArea.show()
-			imgArea.data('img', image.name);
+	// Click image input when sel image button pressed
+	$("#btn_sel_img").click(function(){
+		$('#inp_img').click()
+	});
+	
+	// update image area when there is a change in the img input
+	$('#inp_img').on('change', function() {
+		var image = this.files[0];
+	
+		if (image.size < 2000000) {
+			var reader = new FileReader();
+			reader.onload = function() {
+				var imgArea = $('#img_area');
+				//Remove any existing image
+				imgArea.find('img').remove();
+	
+				var imgUrl = reader.result;
+				var img = $('<img>').attr('src', imgUrl);
+				imgArea.append(img);
+				imgArea.show()
+				imgArea.data('img', image.name);
+			}
+			reader.readAsDataURL(image);
+		} else {
+			alert("Image size more than 2MB");
 		}
-		reader.readAsDataURL(image);
-	} else {
-		alert("Image size more than 2MB");
-	}
+	});
+
+	
+	//submit image to the backend
+	$('#imageForm').submit(function(e) {
+		e.preventDefault();
+	
+		var formData = new FormData();
+		var imageFile = $('#inp_img')[0].files[0];
+		formData.append('image', imageFile);
+	
+		$.ajax({
+			type: 'POST',
+			url: '/image',
+			data: new FormData(this),
+			contentType: false,
+			processData: false,
+			success: function(response) {
+				add_bot_message(response.message)
+			},
+			error: function(response) {
+				add_bot_message(response.error)
+			}
+		});
+	});
+
+	// trigger image submission when submit button clicked
+	$("#btn_sub_img").click(function(){
+		$('#imageForm').submit()
+	});
+	
+	// ToDo: Handle Question Asking
+	$('#questionForm').submit(function(e) {
+		e.preventDefault();
+		$.ajax({
+			type: 'POST',
+			url: '/question',
+			data: $(this).serialize(),
+			success: function(response) {
+				$('#answerSection').html('Answer: ' + response.answer);
+			},
+			error: function(response) {
+				$('#answerSection').html(response.responseJSON.error);
+			}
+		});
+	});
+
 });
 
 function add_bot_message(msg) {
@@ -80,68 +131,3 @@ function add_user_message(msg) {
 }
 
 
-$('#imageUploadForm').on('submit', function (e) {
-	e.preventDefault();
-
-	var formData = new FormData();
-	var imageFile = $('#imageInput')[0].files[0];
-	formData.append('image', imageFile);
-
-	$.ajax({
-		url: '/image',
-		type: 'POST',
-		data: formData,
-		contentType: false,
-		processData: false,
-		success: function (data) {
-			console.log('Image uploaded successfully');
-		},
-		error: function (error) {
-			console.error('Error uploading image');
-		}
-	});
-});
-
-
-// Handle Image Upload
-$('#imageForm').submit(function(e) {
-	e.preventDefault();
-
-	var formData = new FormData();
-	var imageFile = $('#inp_img')[0].files[0];
-	formData.append('image', imageFile);
-
-	$.ajax({
-		type: 'POST',
-		url: '/image',
-		data: new FormData(this),
-		contentType: false,
-		processData: false,
-		success: function(response) {
-			add_bot_message(response.message)
-		},
-		error: function(response) {
-			add_bot_message(response.error)
-		}
-	});
-});
-
-$("#btn_sub_img").click(function(){
-	$('#imageForm').submit()
-});
-
-// Handle Question Asking
-$('#questionForm').submit(function(e) {
-	e.preventDefault();
-	$.ajax({
-		type: 'POST',
-		url: '/question',
-		data: $(this).serialize(),
-		success: function(response) {
-			$('#answerSection').html('Answer: ' + response.answer);
-		},
-		error: function(response) {
-			$('#answerSection').html(response.responseJSON.error);
-		}
-	});
-});
