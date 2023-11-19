@@ -198,8 +198,6 @@ body {
 .bot-msg .sender-text{
     border:2px solid #c8bcbc;
     border-radius:0px 12px 12px 12px;
-    padding:12px;
-    margin-bottom: 0.31em;
     color:#fff
 }
 
@@ -208,15 +206,12 @@ body {
     display:flex;
     align-items:end;
     justify-content:end;
-    margin-bottom: 0.31em;
     gap:8px
 }
 
 .user-msg .user-txt{
     border:2px solid #c8bcbc;
     border-radius:12px 12px 0px 12px;
-    padding:12px;
-    margin-bottom: 0.31em;
     color:#fff
 }
 
@@ -241,11 +236,5 @@ body {
     font-size: 1em;
     flex-grow: 1;
 }
-  
-.send-button {
-    background-color: #1c9bef;
-    color: #fff;
-    font-size: 1em;
-    font-weight: bold;
-}
+
 

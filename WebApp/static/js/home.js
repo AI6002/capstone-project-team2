@@ -78,18 +78,30 @@ $(document).ready(function() {
 		$('#imageForm').submit()
 	});
 	
-	// ToDo: Handle Question Asking
-	$('#questionForm').submit(function(e) {
-		e.preventDefault();
+	
+	// Submit Question from Chat Input
+	$('#form_chat').submit(function(event){
+		event.preventDefault(); // Prevents the default form submission
+
+		var inputText = $('#inp_chat').val(); // Gets the value from the input field
+
+		add_user_message(inputText)
+
+		// AJAX request
 		$.ajax({
-			type: 'POST',
-			url: '/question',
-			data: $(this).serialize(),
+			url: '/question',  // Backend URL
+			type: 'POST',      // HTTP method
+			contentType: 'application/json',
+			data: JSON.stringify({ text: inputText }), // Data sent to the server
 			success: function(response) {
-				$('#answerSection').html('Answer: ' + response.answer);
+				// Handle success
+				console.log('Response:', response);
+				add_bot_message(response.answer);
 			},
-			error: function(response) {
-				$('#answerSection').html(response.responseJSON.error);
+			error: function(error) {
+				// Handle error
+				console.error('Error:', error);
+				add_bot_message(response.error);
 			}
 		});
 	});
@@ -97,7 +109,7 @@ $(document).ready(function() {
 
 	function add_bot_message(msg) {
 		// Create the main div with class 'bot-msg row'
-		var newDiv = $('<div class="bot-msg row"></div>');
+		var newDiv = $('<div class="bot-msg row mb-2"></div>');
 	
 		// Create the sender-image div with class 'col-md-3' and append an image to it
 		var senderImageDiv = $('<div class="sender-image col-md-3"></div>');
@@ -106,7 +118,7 @@ $(document).ready(function() {
 		senderImageDiv.append(img);
 	
 		// Create the sender-text div with class 'col-md-9'
-		var senderTextDiv = $('<div class="sender-text col-md-9"></div>');
+		var senderTextDiv = $('<div class="sender-text col-md-9 p-2"></div>');
 		senderTextDiv.text(msg);
 	
 		// Append senderImageDiv and senderTextDiv to the main div
@@ -120,10 +132,10 @@ $(document).ready(function() {
 	
 	function add_user_message(msg) {
 		// Create the main div with class 'user-mssg row'
-		var newDiv = $('<div class="user-msg"></div>');
+		var newDiv = $('<div class="user-msg mb-2"></div>');
 	
 		// Create the user-text div
-		var userTextDiv = $('<div class="user-txt"></div>');
+		var userTextDiv = $('<div class="user-txt p-2"></div>');
 		userTextDiv.text(msg);
 	
 		// Append userTextDiv to the main div
@@ -132,6 +144,10 @@ $(document).ready(function() {
 		// Append the new div to the parent element
 		$('#msg_section').append(newDiv);
 	}
+
+	$("#clr_clat").click(function(){
+		$('#msg_section').empty();
+	});
 
 });
 
