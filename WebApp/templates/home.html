@@ -55,10 +55,13 @@ VQA Chat-App
                 <button type="submit" hidden>img form submit</button>
             </form>
             
-            <div class="img-area" id="img_area" data-img="">
-                <h3>Capture or Upload Image</h3>
-                <p>Use Select-Img or Capture-Img and <span>SUBMIT</span></p>
+            <div class="img-area" id="img_area">
+                <h3 class="display-6">Capture or Upload Image</h3>
+                <p >Use Select-Img or Capture-Img and <span>SUBMIT</span></p>
+                <p class="guide">Ask any visual based Questions on the image submitted!</p>
+
             </div>
+
             <div class="text-center">
                 <button class="btn btn-outline-primary" id="btn_sel_img">Select-Img</button>
                 <a class="btn btn-outline-success" href="{{ url_for('webcam') }}" role="button">Capture-Img</a>

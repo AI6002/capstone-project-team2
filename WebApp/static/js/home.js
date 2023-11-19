@@ -24,28 +24,75 @@ $(document).ready(function() {
 	});
 	
 	// update image area when there is a change in the img input
-	$('#inp_img').on('change', function() {
-		var image = this.files[0];
+	// $('#inp_img').on('change', function() {
+	// 	var image = this.files[0];
 	
-		if (image.size < 2000000) {
-			var reader = new FileReader();
-			reader.onload = function() {
-				var imgArea = $('#img_area');
-				//Remove any existing image
-				imgArea.find('img').remove();
-	
-				var imgUrl = reader.result;
-				var img = $('<img>').attr('src', imgUrl);
-				imgArea.append(img);
-				imgArea.show()
-				imgArea.data('img', image.name);
-			}
-			reader.readAsDataURL(image);
-		} else {
-			alert("Image size more than 2MB");
-		}
-	});
+	// 	if (image.size < 2000000) {
+	// 		var reader = new FileReader();
+	// 		reader.onload = function() {
 
+	// 			// get the image URL
+	// 			var imgUrl = reader.result;
+	// 			// Create an <img> element with jQuery and set its attributes
+	// 			var $img = $('<img>', {
+	// 				src: imgUrl,
+	// 				class: 'img-fluid',
+	// 				alt: 'User Image',
+	// 				style: 'max-height: 300px;'
+	// 			});
+				
+	// 			$img.on('load', function() {
+	// 				// Adjust the height of the image-area div
+	// 				var imgHeight = $("#img_disp").height();
+	// 				console.log("image height:", imgHeight)
+	// 				$('#img_area').height();
+					
+	// 			});
+				
+	// 			// Attach image name as data to the <img> element
+	// 			$img.data('img', image.name);
+
+	// 			// Empty the 'image-area' div and append the new <img> element
+	// 			$('#img_area').empty().append($img);
+
+
+	// 		}
+	// 		reader.readAsDataURL(image);
+	// 	} else {
+	// 		alert("Image size more than 2MB");
+	// 	}
+	// });
+
+	function addImageToArea(imageSrc) {
+		var $img = $('<img>', {
+			src: imageSrc,
+			class: 'img-fluid',
+			alt: "User Image",
+			style: 'max-width: 100%;'
+		});
+	
+		$img.on('load', function() {
+			// Adjust the height of the image-area div to fit the image
+			var imgHeight = $(this).height();
+			$('.image-area').height(imgHeight);
+		});
+	
+		$('#img_area').empty().append($img);
+	}
+
+	$('#inp_img').change(function(event){
+        if (event.target.files && event.target.files[0]) {
+
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                var imageSrc = e.target.result;
+                addImageToArea(imageSrc);
+            };
+
+            reader.readAsDataURL(event.target.files[0]);
+        }
+    });
 
 	$('#imageForm').on('submit', function (e) {
 		e.preventDefault();
