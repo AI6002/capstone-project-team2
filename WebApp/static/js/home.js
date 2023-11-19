@@ -92,7 +92,7 @@ $(document).ready(function() {
 			url: '/question',  // Backend URL
 			type: 'POST',      // HTTP method
 			contentType: 'application/json',
-			data: JSON.stringify({ text: inputText }), // Data sent to the server
+			data: JSON.stringify({ question: inputText }), // Data sent to the server
 			success: function(response) {
 				// Handle success
 				console.log('Response:', response);

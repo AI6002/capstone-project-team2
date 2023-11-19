@@ -130,14 +130,32 @@ def init_routes(app):
     @app.route('/question', methods=['GET', 'POST'])
     @login_required
     def ask_question():
-        question = request.form.get('question', '')
-        if current_user.image_path is None:
-            return jsonify({'error': 'No image submitted'}), 400
+        
+        # Parse JSON data from the request
+        data = request.get_json()
+        if not data or 'question' not in data:
+            return jsonify({'error': 'No question asked!'}), 400
+
+        # Extract the question
+        question = data['question']
+        print("Question Asked from Model:", question)
+        
+        img_path = current_user.image_path
+        if img_path is None:
+            return jsonify({'error': 'No User submitted image found'}), 400
+        else:
+            print("image path for user:", img_path)
         
         try:
-            with open(current_user.image_path, 'rb') as img_file:
-                answer = process_vqa(img_file, question)
+            if os.path.exists(img_path):
+                print('The Image path exists for the user!')
+                answer = process_vqa(img_path, question)
+                # answer = "temp answer"+ current_user.image_path
                 return jsonify({'answer': answer})
+            else:
+                print('The Image path does not exists for the user.')
+    
+
         except Exception as e:
             return jsonify({'error': 'An error occurred while processing your request'}), 500
     
