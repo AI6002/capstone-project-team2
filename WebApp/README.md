@@ -14,7 +14,7 @@
 * **transformers:** ```conda install -c huggingface transformers```
 * **PIL:**  ```conda install -c anaconda pillow```
 * **numpy:**  ```conda install numpy```  
-* **matplotlib:** ```matplotlib```
+* **matplotlib:** ```conda install -c conda-forge matplotlib```
 
 ## Setup DB and Run Run
 
