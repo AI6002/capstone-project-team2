@@ -20,26 +20,29 @@
 
 #### Windows - For first ever Run:
 ```
-set FLASK_APP=main.py
-flask create-db
+$ set FLASK_APP=main.py
+$ flask create-db
 ```
 
 ####  Linux or macOS - For first ever Run:
 
 ```
-export FLASK_APP=main.py
-flask create-db
+$ export FLASK_APP=main.py
+$ flask create-db
 ```
 ####  Clear Database if required during Schema changes
 ```
-flask clear-db
+$ flask clear-db
 ```
 
-### Run the Web-App
+### Run the Web-App on local machine
 
 ```
-$ flask --app main run
-Running on http://127.0.0.1:5000 (Press CTRL+C to quit)
+$ flask --app main run --host=0.0.0.0
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.0.0.160:5000
+ Press CTRL+C to quit
 
 ```
 
