@@ -38,11 +38,27 @@ body {
     height: 100vh; /* Full viewport height */
 }
 
-@media (min-width: 992px) { /* Large devices (large desktops, 992px and up) */
-.card-full-height {
-    height: 100vh; /* Full viewport height */
+
+/* For small devices (less than 992px) */
+@media (max-width: 991px) { 
+    .card-sm-screen {
+        padding: 10px 15px;
+    }
+
+    /* .card-body-full-h {
+        min-height: 400px;
+    } */
 }
+
+/* For large devices (992px and up) */
+@media (min-width: 992px) { 
+    .card-lg-screen {
+        height: 100vh; /* Full viewport height on large screens */
+        padding: 20px 30px;
+    }
+
 }
+
 
 .chat-bot-wrapper{
     display:flex;
@@ -62,6 +78,13 @@ body {
     display:flex;
     align-items:center;
     justify-content:space-between
+}
+
+.chat-bot-wrapper .card .card-body{
+    display:flex;
+    flex-direction:column;
+    overflow:auto;
+    min-height: 400px;
 }
 
 
@@ -156,14 +179,6 @@ body {
 
 /* Messaging Section */
 /*-------------------------------------------------*/
-.chat-bot-wrapper .card .card-body{
-    display:flex;
-    flex-direction:column;
-    height:500px;
-    overflow:auto
-}
-
-
 .bot-msg .sender-image{
     width:40px;
     height:40px;

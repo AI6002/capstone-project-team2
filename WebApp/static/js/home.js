@@ -22,46 +22,6 @@ $(document).ready(function() {
 	$("#btn_sel_img").click(function(){
 		$('#inp_img').click()
 	});
-	
-	// update image area when there is a change in the img input
-	// $('#inp_img').on('change', function() {
-	// 	var image = this.files[0];
-	
-	// 	if (image.size < 2000000) {
-	// 		var reader = new FileReader();
-	// 		reader.onload = function() {
-
-	// 			// get the image URL
-	// 			var imgUrl = reader.result;
-	// 			// Create an <img> element with jQuery and set its attributes
-	// 			var $img = $('<img>', {
-	// 				src: imgUrl,
-	// 				class: 'img-fluid',
-	// 				alt: 'User Image',
-	// 				style: 'max-height: 300px;'
-	// 			});
-				
-	// 			$img.on('load', function() {
-	// 				// Adjust the height of the image-area div
-	// 				var imgHeight = $("#img_disp").height();
-	// 				console.log("image height:", imgHeight)
-	// 				$('#img_area').height();
-					
-	// 			});
-				
-	// 			// Attach image name as data to the <img> element
-	// 			$img.data('img', image.name);
-
-	// 			// Empty the 'image-area' div and append the new <img> element
-	// 			$('#img_area').empty().append($img);
-
-
-	// 		}
-	// 		reader.readAsDataURL(image);
-	// 	} else {
-	// 		alert("Image size more than 2MB");
-	// 	}
-	// });
 
 	function addImageToArea(imageSrc) {
 		var $img = $('<img>', {
