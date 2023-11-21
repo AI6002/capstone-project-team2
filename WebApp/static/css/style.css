@@ -53,7 +53,6 @@ body {
 /* For large devices (992px and up) */
 @media (min-width: 992px) { 
     .card-lg-screen {
-        height: 100vh; /* Full viewport height on large screens */
         padding: 20px 30px;
     }
 
@@ -70,8 +69,8 @@ body {
 .chat-bot-wrapper .card{
     background: #15202b;
     font-family: 'Roboto', sans-serif;
-    margin: auto;
-    box-shadow: 0 0 1.25em 0.5em #c3c3c333;
+    /* margin: auto; */
+    /* box-shadow: 0 0 1.25em 0.5em #c3c3c333; */
 }
 
 .chat-bot-wrapper .card .top-section{
