@@ -34,6 +34,16 @@ body {
 /* main page wrapper and card styles */
 /*-------------------------------------------------*/
 
+.full-height {
+    height: 100vh; /* Full viewport height */
+}
+
+@media (min-width: 992px) { /* Large devices (large desktops, 992px and up) */
+.card-full-height {
+    height: 100vh; /* Full viewport height */
+}
+}
+
 .chat-bot-wrapper{
     display:flex;
     align-items:center;
@@ -44,12 +54,7 @@ body {
 .chat-bot-wrapper .card{
     background: #15202b;
     font-family: 'Roboto', sans-serif;
-    border-radius: 0.5em;
-    padding: 0.5em 1.25em;
     margin: auto;
-    max-width: 50em;
-    width: 35em;
-    height: 95%;
     box-shadow: 0 0 1.25em 0.5em #c3c3c333;
 }
 
@@ -121,13 +126,7 @@ body {
 	background:lightcyan;
 	margin-bottom: 10px;
 	border-radius: 15px;
-
-    /* Horizontal Txt Centering */
     text-align: center;
-
-    /* Vertical Txt Centering (if the div has a specified height) */
-    /* display: flex; */
-    /* justify-content: center; */
     align-items: center;
 }
 
