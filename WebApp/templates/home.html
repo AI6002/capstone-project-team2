@@ -4,6 +4,10 @@
 VQA Chat-App
 {% endblock %}
 
+{% block additional_head %}
+
+{% endblock %}
+
 {% block header %}
 <!-- Noting needed -->
 {% endblock %}
@@ -16,8 +20,8 @@ VQA Chat-App
 <div class="container h-100"></div>
     <div class="row chat-bot-wrapper">
         <div class="col-12 col-lg-4">
-            <div class="card card-lg-screen card-sm-screen h-100">
 
+            <div class="card card-lg-screen card-sm-screen h-100">
                 <div class="top-section">
                     <div class="profile">
                         <div class="profile-image">
@@ -68,14 +72,40 @@ VQA Chat-App
 
                     </div>
 
+                    
                     <div class="text-center">
                         <button class="btn btn-outline-primary" id="btn_sel_img">Select-Img</button>
-                        <a class="btn btn-outline-success" href="{{ url_for('webcam') }}" role="button">Capture-Img</a>
+                        <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#cameraModal">
+                            Capture-Img
+                        </button>
+                        <!-- <a class="btn btn-outline-success" href="{{ url_for('webcam') }}" role="button">Capture-Img</a> -->
                         <button class="btn btn-info" id="btn_sub_img">Submit</button>
                     </div>
 
                 </div>
 
+                <!-- Modal for Camera Capture -->
+                <div class="modal fade" id="cameraModal" tabindex="-1" aria-labelledby="cameraModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="cameraModalLabel">Capture Image</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <video id="cameraStream" width="100%" autoplay></video>
+                                <button id="switchCamera">Switch Camera</button>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary" id="captureImage">Capture</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Area to display the captured image -->
+                <img id="capturedImage" src="" alt="Captured image will appear here" style="display: none;">
 
                 <!-- Message between Sender and Receiver -->
                 <div class="card-body card-body-full-h">
@@ -94,6 +124,7 @@ VQA Chat-App
                     <button type="button" id="clr_clat" class="mt-2 btn btn-warning">Clear Chat</button>
                 </div>
             </div>
+
         </div>
     </div>
 </div>

@@ -59,6 +59,12 @@ $(document).ready(function() {
 
 		var formData = new FormData();
 		var imageFile = $('#inp_img')[0].files[0];
+
+		if (!imageFile) {
+			alert('No image Selected or captured!');
+			return;
+		}
+
 		formData.append('image', imageFile);
 		
 		// Log the FormData object and the imageFile
@@ -85,6 +91,77 @@ $(document).ready(function() {
 		$('#imageForm').submit()
 	});
 	
+	// functions for Web-cam, Mobile Camera section
+	// ================================================================================
+
+	let currentStream;
+
+	function stopMediaTracks(stream) {
+		stream.getTracks().forEach(track => {
+			track.stop();
+		});
+	}
+
+	function getCameraStream(camera = 'environment') {
+		if (currentStream) {
+			stopMediaTracks(currentStream);
+		}
+
+		const constraints = {
+			video: { facingMode: camera }
+		};
+
+		navigator.mediaDevices.getUserMedia(constraints)
+			.then(stream => {
+				currentStream = stream;
+				$('#cameraStream').get(0).srcObject = stream;
+			})
+			.catch(error => {
+				console.error('Error accessing camera', error);
+			});
+	}
+
+	$('#switchCamera').click(function() {
+		const facingMode = currentStream.getVideoTracks()[0].getSettings().facingMode;
+		getCameraStream(facingMode === 'environment' ? 'user' : 'environment');
+	});
+
+	$('#captureImage').click(function() {
+		const videoElement = $('#cameraStream').get(0);
+		const canvas = $('<canvas>').get(0);
+		canvas.width = videoElement.videoWidth;
+		canvas.height = videoElement.videoHeight;
+		canvas.getContext('2d').drawImage(videoElement, 0, 0, canvas.width, canvas.height);
+
+		// Show image in the Display Area
+		const imageDataUrl = canvas.toDataURL('image/png');
+		addImageToArea(imageDataUrl)
+
+		// Set Image as file input for submission
+		canvas.toBlob(function(blob) {
+			const file = new File([blob], "captured_image.png", { type: "image/png" });
+
+			const dataTransfer = new DataTransfer();
+			dataTransfer.items.add(file);
+
+			$('#inp_img').get(0).files = dataTransfer.files;
+		}, 'image/png');
+
+		$('#cameraModal').modal('hide');
+	});
+
+	$('#cameraModal').on('shown.bs.modal', function() {
+		getCameraStream();
+	});
+
+	$('#cameraModal').on('hidden.bs.modal', function() {
+		if (currentStream) {
+			stopMediaTracks(currentStream);
+		}
+	});
+
+	// functions for Message section
+	// ================================================================================
 	
 	// Submit Question from Chat Input
 	$('#form_chat').submit(function(event){
@@ -155,6 +232,7 @@ $(document).ready(function() {
 	$("#clr_clat").click(function(){
 		$('#msg_section').empty();
 	});
+
 
 });
 
