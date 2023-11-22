@@ -4,6 +4,7 @@ from .extensions import db
 from .models import User
 from .vqa_models import process_vqa
 import os
+import shutil
 
 def init_routes(app):
     # Handle Landing Page
@@ -110,9 +111,16 @@ def init_routes(app):
         else:
             print("Image submit: image Name exist:", image.filename)
 
+        
         # Get the Current_user id, create session data dir for user
         user_id = "user-"+str(current_user.id)
         image_dir = os.path.join('session', user_id)
+        
+         # Clear the user's image directory
+        if os.path.exists(image_dir):
+            shutil.rmtree(image_dir)
+            print("clearing users dir", image_dir)
+
         print("creating user session dir:", image_dir)
         os.makedirs(image_dir, exist_ok=True)
 
