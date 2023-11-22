@@ -74,12 +74,15 @@ VQA Chat-App
 
                     
                     <div class="text-center">
-                        <button class="btn btn-outline-primary" id="btn_sel_img">Select-Img</button>
-                        <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#cameraModal">
-                            Capture-Img
+                        <button class="btn btn-outline-primary" id="btn_sel_img">
+                            <i class="fa fa-image"></i> Select-Img
                         </button>
-                        <!-- <a class="btn btn-outline-success" href="{{ url_for('webcam') }}" role="button">Capture-Img</a> -->
-                        <button class="btn btn-info" id="btn_sub_img">Submit</button>
+                        <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#cameraModal">
+                            <i class="fa fa-camera"></i> Capture-Img
+                        </button>
+                        <button class="btn btn-info" id="btn_sub_img" style="font-weight: bold;">
+                            <i class="fa fa-upload "></i> Submit
+                        </button>
                     </div>
 
                 </div>
@@ -89,16 +92,22 @@ VQA Chat-App
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="cameraModalLabel">Capture Image</h5>
+                                <h5 class="modal-title" id="cameraModalLabel">Capture User Image</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
                                 <video id="cameraStream" width="100%" autoplay></video>
-                                <button id="switchCamera">Switch Camera</button>
+                                <button class="btn btn-outline-dark" id="switchCamera">
+                                    <i class="fa fa-sync-alt"></i> Switch Camera
+                                </button>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary" id="captureImage">Capture</button>
+                                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                                    <i class="fa fa-times"></i> Close
+                                </button>
+                                <button type="button" class="btn btn-outline-primary" id="captureImage" style="font-weight: bold;">
+                                    <i class="fa fa-camera"></i> Capture
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -118,10 +127,14 @@ VQA Chat-App
                 <!-- text input form -->
                 <div class="mb-2 mt-2">
                     <form class="chat-input-form" id="form_chat">
-                        <input type="text" class="chat-input" id="inp_chat" required placeholder="Type here ..." />
-                        <button type="submit" class="btn btn-lg btn-info">Send</button>
+                        <input type="text" class="chat-input" id="inp_chat" required placeholder="Type Question here ..." />
+                        <button type="submit" class="btn btn-lg btn-info">
+                            <i class="fa fa-paper-plane"></i> Ask
+                        </button>
                     </form>
-                    <button type="button" id="clr_clat" class="mt-2 btn btn-warning">Clear Chat</button>
+                    <button type="button" id="clr_chat" class="mt-2 btn btn-warning">
+                        <i class="fa fa-trash"></i> Clear Chat
+                    </button>
                 </div>
             </div>
 

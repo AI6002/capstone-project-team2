@@ -192,23 +192,29 @@ $(document).ready(function() {
 
 		add_user_message(inputText)
 
-		// AJAX request
-		$.ajax({
-			url: '/question',  // Backend URL
-			type: 'POST',      // HTTP method
-			contentType: 'application/json',
-			data: JSON.stringify({ question: inputText }), // Data sent to the server
-			success: function(response) {
-				// Handle success
-				console.log('Response:', response);
-				add_bot_message(response.answer);
-			},
-			error: function(error) {
-				// Handle error
-				console.error('Error:', error);
-				add_bot_message(response.error);
-			}
-		});
+		//Verify if there is a Image submitted
+		// Check if the file input is empty
+		if ($('#inp_img').val() === '') {
+			add_bot_message("please submit a image to Ask question!");
+		}else {
+			// AJAX request
+			$.ajax({
+				url: '/question',  // Backend URL
+				type: 'POST',      // HTTP method
+				contentType: 'application/json',
+				data: JSON.stringify({ question: inputText }), // Data sent to the server
+				success: function(response) {
+					// Handle success
+					console.log('Response:', response);
+					add_bot_message(response.answer);
+				},
+				error: function(error) {
+					// Handle error
+					console.error('Error:', error);
+					add_bot_message(response.error);
+				}
+			});
+		}
 	});
 
 
@@ -250,7 +256,7 @@ $(document).ready(function() {
 		$('#msg_section').append(newDiv);
 	}
 
-	$("#clr_clat").click(function(){
+	$("#clr_chat").click(function(){
 		$('#msg_section').empty();
 	});
 
