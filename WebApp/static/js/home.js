@@ -139,14 +139,35 @@ $(document).ready(function() {
 
 		// Set Image as file input for submission
 		canvas.toBlob(function(blob) {
-			const file = new File([blob], "captured_image.png", { type: "image/png" });
+			const file = new File([blob], "captured_image.jpg", { type: "image/jpeg" });
 
 			const dataTransfer = new DataTransfer();
 			dataTransfer.items.add(file);
 
 			$('#inp_img').get(0).files = dataTransfer.files;
-		}, 'image/png');
 
+		}, 'image/jpeg', 0.95);
+
+		$('#cameraModal').modal('hide');
+	});
+
+	$('#captureImage').click(function() {
+		const videoElement = $('#cameraStream').get(0);
+		const canvas = $('<canvas>').get(0);
+		canvas.width = videoElement.videoWidth;
+		canvas.height = videoElement.videoHeight;
+		canvas.getContext('2d').drawImage(videoElement, 0, 0, canvas.width, canvas.height);
+	
+		// Convert canvas content to a Blob as a JPEG image
+		canvas.toBlob(function(blob) {
+			const file = new File([blob], "captured_image.jpg", { type: "image/jpeg" });
+	
+			const dataTransfer = new DataTransfer();
+			dataTransfer.items.add(file);
+	
+			$('#inp_img').get(0).files = dataTransfer.files;
+		}, 'image/jpeg', 0.95); // Second parameter (0.95) is the quality of the JPEG
+	
 		$('#cameraModal').modal('hide');
 	});
 
