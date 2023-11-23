@@ -243,3 +243,25 @@ body {
 }
 
 
+.modelhead{
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 1.5em;
+    color: #fff;
+}
+
+.cardboard {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);
+    background-color: transparent;
+    margin: 10px;
+    width: fit-content;
+}
+.reaction-box{
+    color: #fff;
+    margin-top: 15em;
+    text-align: center;
+}
+   

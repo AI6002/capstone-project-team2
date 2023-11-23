@@ -10,61 +10,57 @@ Model Accuracy
 
 {% block content %}
 
-<h1>Model Accuracy</h1>
-<canvas id="accuracyChart" width="400" height="400"></canvas>
-
+<h1 class="modelhead">Model Accuracy</h1>
+<div class="row justify-content-center">">
+    <div class="cardboard chart-container">
+    <canvas id="accuracyChart" width="400" height="400"></canvas>
+    </div>
+    <div class="cardboard reaction-box">
+        <h1>Overall Reactions</h1>
+        <p><b>Positive:</b> {{ likes_count }} ({{ "%.2f"|format(likes_percentage) }}%)</p>
+        <p><b>Negative:</b> {{ dislikes_count }} ({{ "%.2f"|format(dislikes_percentage)}}%)</p>
+    </div>
+</div>
 {% endblock %}
 
 {% block additional_scripts %}
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-  const fetchData = async () => {
-    try {
-      const response = await fetch('/get_accuracy');
-      if (response.ok) {
-        const data = await response.json();
-        renderPieChart(
-          ['Correct Predictions', 'Incorrect Predictions'],
-          [data.correct_predictions, data.incorrect_predictions]
-        );
-      } else {
-        throw new Error('Failed to fetch data');
-      }
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
-  };
+    const renderPieChart = (likes, dislikes) => {
+        const ctx = document.getElementById('accuracyChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ['Likes', 'Dislikes'],
+                datasets: [{
+                    data: [likes, dislikes],
+                    backgroundColor: [
+                        'rgba(54, 162, 235, 0.6)',
+                        'rgba(255, 99, 132, 0.6)'
+                    ],
+                    borderColor: [
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 99, 132, 1)'
+                    ],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                title: {
+                    display: true,
+                    text: 'Likes vs Dislikes'
+                }
+            }
+        });
+    };
 
-  const renderPieChart = (labels, data) => {
-    const ctx = document.getElementById('accuracyChart').getContext('2d');
-    new Chart(ctx, {
-      type: 'pie',
-      data: {
-        labels: labels,
-        datasets: [{
-          data: data,
-          backgroundColor: [
-            'rgba(54, 162, 235, 0.6)',
-            'rgba(255, 99, 132, 0.6)'
-          ],
-          borderColor: [
-            'rgba(54, 162, 235, 1)',
-            'rgba(255, 99, 132, 1)'
-          ],
-          borderWidth: 1
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        title: {
-          display: true,
-          text: 'Model Accuracy'
-        }
-      }
-    });
-  };
+    // Accessing data passed from Flask backend
+    const likes = {{ likes_count }};
+    const dislikes = {{ dislikes_count }};
 
-  fetchData();
+    // Render pie chart with fetched data
+    renderPieChart(likes, dislikes);
 </script>
 {% endblock %}
