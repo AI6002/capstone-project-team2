@@ -1,5 +1,8 @@
 $(document).ready(function() {
 
+	// Set GPT-4V Model Selection unchecked as default
+	$('#modelToggle').prop('checked', false); // or false, as per your requirement
+
 	// Check if there is image returned from webcam page 
     const urlParams = new URLSearchParams(window.location.search);
     const capturedImage = urlParams.get('image');
@@ -184,6 +187,11 @@ $(document).ready(function() {
 	// functions for Message section
 	// ================================================================================
 	
+	// Function to get the dropdown status
+	function getGTP4Sel() {
+		return $('#modelToggle').is(':checked');
+	}
+
 	// Submit Question from Chat Input
 	$('#form_chat').submit(function(event){
 		event.preventDefault(); // Prevents the default form submission
@@ -191,6 +199,8 @@ $(document).ready(function() {
 		var inputText = $('#inp_chat').val(); // Gets the value from the input field
 
 		add_user_message(inputText)
+
+		
 
 		//Verify if there is a Image submitted
 		// Check if the file input is empty
@@ -202,7 +212,7 @@ $(document).ready(function() {
 				url: '/question',  // Backend URL
 				type: 'POST',      // HTTP method
 				contentType: 'application/json',
-				data: JSON.stringify({ question: inputText }), // Data sent to the server
+				data: JSON.stringify({ question: inputText, gtp4_sel: getGTP4Sel() }), // Data sent to the server
 				success: function(response) {
 					// Handle success
 					console.log('Response:', response);

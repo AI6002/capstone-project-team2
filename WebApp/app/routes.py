@@ -3,6 +3,7 @@ from flask_login import login_user, logout_user, login_required, current_user
 from .extensions import db
 from .models import User
 from .vqa_models import process_vqa
+from .gpt4v_model import process_gtp4
 import os
 import shutil
 
@@ -144,10 +145,11 @@ def init_routes(app):
         if not data or 'question' not in data:
             return jsonify({'error': 'No question asked!'}), 400
 
-        # Extract the question
+        # Extract the question and Model Selection
         question = data['question']
         print("Question Asked from Model:", question)
-        
+        gpt4_sel = data['gtp4_sel']
+        print("GPT-4V model Selection:", gpt4_sel)
         img_path = current_user.image_path
         if img_path is None:
             return jsonify({'error': 'No User submitted image found'}), 400
@@ -157,8 +159,14 @@ def init_routes(app):
         try:
             if os.path.exists(img_path):
                 print('The Image path exists for the user!')
-                answer = process_vqa(img_path, question)
-                # answer = "temp answer"+ current_user.image_path
+                
+                if gpt4_sel:
+                    answer = process_gtp4(img_path, question)
+                    print('GPT-4V Model Selected for Answering')
+                else:
+                    answer = process_vqa(img_path, question)
+                    print('ViLT Model Selected for Answering')
+
                 return jsonify({'answer': answer})
             else:
                 print('The Image path does not exists for the user.')
