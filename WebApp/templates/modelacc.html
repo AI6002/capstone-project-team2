@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block title %}
+Model Accuracy
+{% endblock %}
+
+{% block header %}
+<!-- No Header required -->
+{% endblock %}
+
+{% block content %}
+
+<h1>Model Accuracy</h1>
+<canvas id="accuracyChart" width="400" height="400"></canvas>
+
+{% endblock %}
+
+{% block additional_scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  const fetchData = async () => {
+    try {
+      const response = await fetch('/get_accuracy');
+      if (response.ok) {
+        const data = await response.json();
+        renderPieChart(
+          ['Correct Predictions', 'Incorrect Predictions'],
+          [data.correct_predictions, data.incorrect_predictions]
+        );
+      } else {
+        throw new Error('Failed to fetch data');
+      }
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+
+  const renderPieChart = (labels, data) => {
+    const ctx = document.getElementById('accuracyChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'pie',
+      data: {
+        labels: labels,
+        datasets: [{
+          data: data,
+          backgroundColor: [
+            'rgba(54, 162, 235, 0.6)',
+            'rgba(255, 99, 132, 0.6)'
+          ],
+          borderColor: [
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 99, 132, 1)'
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        title: {
+          display: true,
+          text: 'Model Accuracy'
+        }
+      }
+    });
+  };
+
+  fetchData();
+</script>
+{% endblock %}

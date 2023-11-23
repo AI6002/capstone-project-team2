@@ -173,7 +173,6 @@ $(document).ready(function() {
 		$('#cameraModal').modal('hide');
 	});
 
-
 	$('#cameraModal').on('shown.bs.modal', function() {
 		getCameraStream();
 	});
@@ -229,8 +228,13 @@ $(document).ready(function() {
 
 
 	function add_bot_message(msg) {
+
+		// Create a unique ID for each message
+		var messageId = 'msg_' + Math.random().toString(36).substr(2, 9); // Generating a random ID
+
 		// Create the main div with class 'bot-msg row'
 		var newDiv = $('<div class="bot-msg row mb-2"></div>');
+		newDiv.attr('id', messageId); // Assign the generated ID to the message
 	
 		// Create the sender-image div with class 'col-md-3' and append an image to it
 		var senderImageDiv = $('<div class="sender-image col-md-3"></div>');
@@ -242,12 +246,73 @@ $(document).ready(function() {
 		var senderTextDiv = $('<div class="sender-text col-md-9 p-2"></div>');
 		senderTextDiv.text(msg);
 	
+		var reactions = $('<div class="reactions hidden"></div>');
+		var likeBtn = $('<button class="reaction-btn hidden" data-reaction="like">👍</button>');
+		var dislikeBtn = $('<button class="reaction-btn hidden" data-reaction="dislike">👎</button>');
+	
+		reactions.append(likeBtn);
+		reactions.append(dislikeBtn);	
+	
 		// Append senderImageDiv and senderTextDiv to the main div
 		newDiv.append(senderImageDiv);
 		newDiv.append(senderTextDiv);
+		newDiv.append(reactions);
 	
 		// Append the new div to the parent element
 		$('#msg_section').append(newDiv);
+
+	    // Show only the selected reaction when clicked
+		newDiv.on('click', function() {
+			$('.reaction-btn').addClass('hidden'); // Hide all reaction buttons initially
+			$(this).find('.reactions').removeClass('hidden'); // Show reactions only for the clicked message
+		});
+	
+		likeBtn.click(function() {
+			console.log('Like clicked!');
+			likeBtn.attr('disabled', true); // Disable the like button
+        	dislikeBtn.attr('hidden', true); // Enable the dislike button
+			// Handle like button click action here
+			var messageId = $(this).closest('.bot-msg').attr('id'); // Get the ID of the message
+			console.log(messageId)
+			var data = {
+				messageId: messageId,
+				reaction: 'like'
+			};
+		
+			saveReaction(data);
+		});
+	
+		dislikeBtn.click(function() {
+			console.log('Dislike clicked!');
+			dislikeBtn.attr('disabled', true); // Disable the dislike button
+        	likeBtn.attr('hidden', true); // Enable the like button
+			// Handle dislike button click action here
+			var messageId = $(this).closest('.bot-msg').attr('id'); // Get the ID of the message
+			console.log(messageId)
+			var data = {
+				messageId: messageId,
+				reaction: 'dislike'
+			};
+		
+			saveReaction(data);
+		});
+	}
+
+	function saveReaction(data) {
+		$.ajax({
+			url: '/save-reaction',
+			type: 'POST',
+			contentType: 'application/json',
+			data: JSON.stringify(data),
+			success: function(response) {
+				// Handle success
+				console.log('Reaction action saved!');
+			},
+			error: function(error) {
+				// Handle error
+				console.error('Error saving reaction action:', error);
+			}
+		});
 	}
 	
 	

@@ -17,4 +17,13 @@ class User(UserMixin, db.Model):
     
     def set_img_path(self, path):
         self.image_path = path
+
+class Reaction(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    message_id = db.Column(db.Integer, nullable=False)
+    reaction_type = db.Column(db.String(10), nullable=False)  # 'like' or 'dislike'
+
+    # Define a relationship with the User model
+    user = db.relationship('User', backref=db.backref('reactions', lazy=True))
         

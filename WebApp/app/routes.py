@@ -2,6 +2,7 @@ from flask import render_template, url_for, redirect, request, flash, jsonify
 from flask_login import login_user, logout_user, login_required, current_user
 from .extensions import db
 from .models import User
+from .models import Reaction
 from .vqa_models import process_vqa
 from .gpt4v_model import process_gtp4
 import os
@@ -84,6 +85,34 @@ def init_routes(app):
             else:
                 flash('User Not Found')
         return render_template('login.html')
+    
+    @app.route('/save-reaction', methods=['POST'])
+    @login_required
+    def save_reaction():
+        data = request.get_json()
+        message_id = data.get('messageId')
+        reaction = data.get('reaction')
+
+        # Assuming 'user_id' is available in the session or request context (authenticated user)
+        user_id = current_user.id
+
+        if user_id and message_id and reaction in ['like', 'dislike']:
+            new_reaction = Reaction(user_id=user_id, message_id=message_id, reaction_type=reaction)
+            db.session.add(new_reaction)
+            db.session.commit()
+            return jsonify({'message': 'Reaction saved successfully'}), 200
+
+        return jsonify({'message': 'Invalid data provided'}), 400
+
+    @app.route('/user/reaction/count/<int:user_id>', methods=['GET'])
+    def get_user_reaction_count(user_id):
+        if user_id:
+            likes_count = Reaction.query.filter_by(user_id=user_id, reaction_type='like').count()
+            dislikes_count = Reaction.query.filter_by(user_id=user_id, reaction_type='dislike').count()
+
+            return jsonify({'likes': likes_count, 'dislikes': dislikes_count}), 200
+
+        return jsonify({'message': 'Invalid user ID provided'}), 400
 
 
     @app.route('/logout')
@@ -91,6 +120,11 @@ def init_routes(app):
     def logout():
         logout_user()
         return redirect(url_for('login'))
+    
+    # Route to render the Model Accuracy page (modelacc.html)
+    @app.route('/model_accuracy')
+    def model_accuracy():
+        return render_template('modelacc.html')
 
     # Handling the Webcam.html page
     @app.route('/webcam')
