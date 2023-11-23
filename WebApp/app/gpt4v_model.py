@@ -5,9 +5,11 @@ import requests
 # Function to read API key
 def get_openai_api_key():
     key_file_path = os.environ.get('OPENAI_KEY_PATH', 'openai_key.txt')
-    print("key path:", key_file_path)
-    with open(key_file_path, 'r') as file:
-        return file.read().strip()
+    try:
+        with open(key_file_path, 'r') as file:
+            return file.read().strip()
+    except FileNotFoundError:
+        return False
 
 # Function to encode the image
 def encode_image(image_path):
@@ -16,7 +18,13 @@ def encode_image(image_path):
         
 # Example route using the API key
 def process_gtp4(img_path, question):
+    
     api_key = get_openai_api_key()
+    if api_key:
+        print("api key loaded")
+    else: 
+        return "Error Loading GPT4 API KEY"
+        
     
     # Getting the base64 string
     base64_image = encode_image(img_path)
