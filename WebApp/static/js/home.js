@@ -9,6 +9,7 @@ $(document).ready(function() {
 	});
 
 	function addImageToArea(imageSrc) {
+		
 		console.log("Adding Image to Display Area")
 		var $img = $('<img>', {
 			src: imageSrc,
@@ -27,36 +28,71 @@ $(document).ready(function() {
 	}
 
 	$('#inp_img').change(function(event){
-		console.log("img input changed")
-        if (event.target.files && event.target.files[0]) {
-
-            var reader = new FileReader();
-
-            reader.onload = function(e) {
-                var imageSrc = e.target.result;
-                addImageToArea(imageSrc);
-            };
-
-            reader.readAsDataURL(event.target.files[0]);
-        }
-    });
-
+		console.log("img input changed");
+		var file = event.target.files[0];
+	
+		if (file) {
+			// Compress the image file using Compressor.js
+			new Compressor(file, {
+				quality: 0.8, // Compression quality, 0.8 is typically a good balance
+				maxWidth: 360, // Max width in pixels
+				maxHeight: 360, // Max height in pixels
+				convertSize: 1000000, // Converts images over 2MB to JPEG
+				success: function (compressedImage) {
+					// Use FileReader to read the compressed image and get a data URL
+					var reader = new FileReader();
+					reader.onload = function(e) {
+						var imageSrc = e.target.result;
+						addImageToArea(imageSrc);
+					};
+					reader.readAsDataURL(compressedImage);
+				},
+				error: function(err) {
+					console.error('Compression Error:', err.message);
+				}
+			});
+		}
+	});
+	
 	$('#imageForm').on('submit', function (e) {
 		e.preventDefault();
-
-		var formData = new FormData();
+	
 		var imageFile = $('#inp_img')[0].files[0];
-
+	
 		if (!imageFile) {
 			alert('No image Selected or captured!');
 			return;
 		}
-
-		formData.append('image', imageFile);
-		
-		// Log the FormData object and the imageFile
+	
+		// Check if the image size is more than 1 MB
+		if (imageFile.size > 1048576) { // 1048576 - 1 MB in bytes
+			// Compress the image only if it is larger than 1 MB
+			new Compressor(imageFile, {
+				quality: 0.8,
+				maxWidth: 1080,
+				convertSize: 2000000, // Converts images over 1MB to JPEG
+				success: function (compressedImage) {
+					sendImageData(compressedImage);
+				},
+				error: function(err) {
+					console.error('Compression Error:', err.message);
+					// Optionally handle the error by notifying the user or taking other actions
+				}
+			});
+		} else {
+			// If image size is less than 1 MB, send it as it is
+			sendImageData(imageFile);
+		}
+	});
+	
+	function sendImageData(imageFile) {
+		var formData = new FormData();
+		formData.append('image', imageFile, imageFile.name);
+	
+		// Log the FormData object and the image file
 		console.log("Image File:", imageFile);
-
+	
+		// Perform the AJAX request
 		$.ajax({
 			url: '/image',
 			type: 'POST',
@@ -67,11 +103,10 @@ $(document).ready(function() {
 				add_bot_message(response.message);
 			},
 			error: function (error) {
-				add_bot_message(response.error);
+				add_bot_message(error.responseJSON.error);
 			}
 		});
-	});
-
+	}
 
 	// trigger image submission when submit button clicked
 	$("#btn_sub_img").click(function(){
