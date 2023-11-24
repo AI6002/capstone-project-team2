@@ -8,13 +8,13 @@
 * **flask_sqlalchemy:** ```conda install -c conda-forge flask-sqlalchemy```
 * **flask_cors:** ```conda install -c conda-forge flask_cors```
 * **jinja2:** ```conda install -c anaconda jinja2```
+* **bcryp:** ```conda install -c anaconda bcryp```
 
 ### Dependencies for VQA
 * **pytorch torchvision torchaudio:** ```conda install pytorch torchvision torchaudio pytorch-cuda=12.1 -c pytorch -c nvidia```
 * **transformers:** ```conda install -c huggingface transformers```
 * **PIL:**  ```conda install -c anaconda pillow```
-* **numpy:**  ```conda install numpy```  
-* **matplotlib:** ```conda install -c conda-forge matplotlib```
+* **numpy:**  ```conda install numpy```
 
 ## Setup DB and Run Run
 
