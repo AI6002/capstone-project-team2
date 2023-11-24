@@ -161,12 +161,11 @@ def init_routes(app):
                 print('The Image path exists for the user!')
                 
                 if gpt4_sel:
-                    answer = process_gtp4(img_path, question)
                     print('GPT-4V Model Selected for Answering')
+                    answer = process_gtp4(img_path, question)
                 else:
-                    answer = process_vqa(img_path, question)
                     print('ViLT Model Selected for Answering')
-
+                    answer = process_vqa(img_path, question)
                 return jsonify({'answer': answer})
             else:
                 print('The Image path does not exists for the user.')
