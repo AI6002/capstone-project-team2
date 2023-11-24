@@ -1,6 +1,7 @@
 from flask import Flask
 from .extensions import db, login_manager
 from .models import User
+from werkzeug.middleware.proxy_fix import ProxyFix
 
 # Global Vars to hold dirs
 static_dir = ""
@@ -18,7 +19,8 @@ def set_dirs(static, template):
 def create_app(config_object='config.Config'):
     app = Flask(__name__, template_folder=template_dir, static_folder=static_dir)
     app.config.from_object(config_object)
-
+    app.wsgi_app = ProxyFix(app.wsgi_app)
+    
     db.init_app(app)
     login_manager.init_app(app)
     
