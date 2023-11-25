@@ -11,8 +11,7 @@ Model Accuracy
 {% block content %}
 
 <h1 class="modelhead">Model Accuracy</h1>
-<div class="row justify-content-center">">
-    <div class="cardboard chart-container">
+    <div class="chart-container">
     <canvas id="accuracyChart" width="400" height="400"></canvas>
     </div>
     <div class="cardboard reaction-box">
@@ -20,7 +19,6 @@ Model Accuracy
         <p><b>Positive:</b> {{ likes_count }} ({{ "%.2f"|format(likes_percentage) }}%)</p>
         <p><b>Negative:</b> {{ dislikes_count }} ({{ "%.2f"|format(dislikes_percentage)}}%)</p>
     </div>
-</div>
 {% endblock %}
 
 {% block additional_scripts %}
@@ -35,8 +33,8 @@ Model Accuracy
                 datasets: [{
                     data: [likes, dislikes],
                     backgroundColor: [
-                        'rgba(54, 162, 235, 0.6)',
-                        'rgba(255, 99, 132, 0.6)'
+                        'rgba(26, 74, 255, 0.81)',
+                        'rgba(255, 0, 94, 1)'
                     ],
                     borderColor: [
                         'rgba(54, 162, 235, 1)',
