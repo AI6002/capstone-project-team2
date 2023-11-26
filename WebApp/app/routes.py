@@ -223,6 +223,11 @@ def init_routes(app):
         except Exception as e:
             return jsonify({'error': 'An error occurred while processing your request'}), 500
     
+    # About Us
+    @app.route('/about_us')
+    def about_us():
+        return render_template('about_us.html')
+    
     # Error handler
     @app.errorhandler(500)
     def internal_server_error(e):
