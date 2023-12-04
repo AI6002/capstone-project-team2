@@ -212,11 +212,12 @@ $(document).ready(function() {
 	$('#form_chat').submit(function(event){
 		event.preventDefault(); // Prevents the default form submission
 
+		// Hide the "Ask" text and show the spinner
+		$("#btnText").hide();
+		$("#spinner").show();
+
 		var inputText = $('#inp_chat').val(); // Gets the value from the input field
-
 		add_user_message(inputText)
-
-		
 
 		//Verify if there is a Image submitted
 		// Check if the file input is empty
@@ -245,6 +246,9 @@ $(document).ready(function() {
 
 
 	function add_bot_message(msg) {
+		// backend processing is done, reset the button
+		$("#btnText").show();
+		$("#spinner").hide();
 
 		// Create a unique ID for each message
 		var messageId = 'msg_' + Math.random().toString(36).substr(2, 9); // Generating a random ID

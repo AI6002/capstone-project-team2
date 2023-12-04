@@ -126,7 +126,7 @@ VQA Chat-App
                 <!-- Area to display the captured image -->
                 <img id="capturedImage" src="" alt="Captured image will appear here" style="display: none;">
 
-                <!-- Message between Sender and Receiver -->
+                <!-- Message between User and VQA-app -->
                 <div class="card-body card-body-full-h">
                     <!-- Message Displaying Area -->
                     <div id="msg_section">
@@ -138,9 +138,14 @@ VQA Chat-App
                 <div class="mb-2 mt-2">
                     <form class="chat-input-form" id="form_chat">
                         <input type="text" class="chat-input" id="inp_chat" required placeholder="Type Question here ..." />
-                        <button type="submit" class="btn btn-lg btn-info">
-                            <i class="fa fa-paper-plane"></i> Ask
+                        <button type="submit" class="btn btn-lg btn-info" id="submitBtn">
+                            <span id="btnText"><i class="fa fa-paper-plane"></i> Ask</span>
+                            <span class="spinner-border spinner-border-sm" id="spinner" role="status" aria-hidden="true" style="display: none;"></span>
                         </button>
+                        
+                        <!-- <button type="submit" class="btn btn-lg btn-info">
+                            <i class="fa fa-paper-plane"></i> Ask
+                        </button> -->
                     </form>
                     <button type="button" id="clr_chat" class="mt-2 btn btn-warning">
                         <i class="fa fa-trash"></i> Clear Chat
