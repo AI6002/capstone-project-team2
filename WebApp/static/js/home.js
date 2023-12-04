@@ -216,6 +216,9 @@ $(document).ready(function() {
 		$("#btnText").hide();
 		$("#spinner").show();
 
+		// Disable question input
+		$("#inp_chat").prop("disabled", true);
+
 		var inputText = $('#inp_chat').val(); // Gets the value from the input field
 		add_user_message(inputText)
 
@@ -251,6 +254,9 @@ $(document).ready(function() {
 		$("#btnText").show();
 		$("#spinner").hide();
 		
+		// Enable question input
+		$("#inp_chat").prop("disabled", false);
+
 		// Clear the question input form
 		$("#inp_chat").val('');
 
