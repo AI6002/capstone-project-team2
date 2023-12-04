@@ -6,9 +6,9 @@ $(document).ready(function() {
 	// Function to update label text based on checkbox state
 	function updateLabelText() {
         if ($('#modelToggle').is(':checked')) {
-            $('#modelTxt').text('ViLT');
-        } else {
             $('#modelTxt').text('GPT-4V');
+        } else {
+            $('#modelTxt').text('ViLT');
         }
     }
 
