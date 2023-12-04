@@ -246,9 +246,13 @@ $(document).ready(function() {
 
 
 	function add_bot_message(msg) {
+		// VQA model response is received
 		// backend processing is done, reset the button
 		$("#btnText").show();
 		$("#spinner").hide();
+		
+		// Clear the question input form
+		$("#inp_chat").val('');
 
 		// Create a unique ID for each message
 		var messageId = 'msg_' + Math.random().toString(36).substr(2, 9); // Generating a random ID
