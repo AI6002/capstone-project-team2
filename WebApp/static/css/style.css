@@ -123,6 +123,10 @@ body {
     color: #fff;
 }
 
+.top-section .model-sel {
+    color: #fff;
+    border-color: #ccc;
+}
 
 /* User Menu, Notification Section */
 /*-------------------------------------------------*/
@@ -161,17 +165,18 @@ body {
 
 .img-area h3 {
     font-family: Consolas,monaco,monospace; 
-	font-size: 30px;
+	font-size: 20px;
 	font-weight: bold;
 	margin-bottom: 10px;
 }
-.img-area p {
+
+.img-area .guide-emp {
     font-family: Consolas,monaco,monospace; 
     font-family: Georgia, serif;
 	color: #1f1f5e;
 }
 
-.img-area span {
+.img-area .guide-emp span{
     font-family: Consolas,monaco,monospace; 
 	font-weight: bold;
     color: darkred;
@@ -179,6 +184,12 @@ body {
 
 .img-area .guide {
     color: #555;
+    font-family: 'Courier New', monospace;
+}
+
+.img-area .guide span{
+    color: #15202b;
+    font-weight: bold;
     font-family: 'Courier New', monospace;
 }
 

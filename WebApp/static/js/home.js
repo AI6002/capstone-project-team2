@@ -3,6 +3,23 @@ $(document).ready(function() {
 	// Set GPT-4V Model Selection unchecked as default
 	$('#modelToggle').prop('checked', false); // or false, as per your requirement
 
+	// Function to update label text based on checkbox state
+	function updateLabelText() {
+        if ($('#modelToggle').is(':checked')) {
+            $('#modelTxt').text('ViLT');
+        } else {
+            $('#modelTxt').text('GPT-4V');
+        }
+    }
+
+	// Initialize label text when the page loads
+	updateLabelText();
+
+	// Change label text when the checkbox state changes
+	$('#modelToggle').on('change', function() {
+		updateLabelText();
+	});
+	
 	// Click image input when sel image button pressed
 	$("#btn_sel_img").click(function(){
 		$('#inp_img').click()

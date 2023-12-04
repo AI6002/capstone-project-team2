@@ -23,16 +23,25 @@ VQA Chat-App
 
             <div class="card card-lg-screen card-sm-screen">
                 <div class="top-section">
+                    <!-- Profile Info -->
                     <div class="profile">
                         <div class="profile-image">
                             <img src="{{ url_for('static', filename='/images/profile.jpg') }}" alt="Profile image">
                         </div>
                         <div class="profile-info">
-                            <div class="greeting">Welcome Back!</div>
+                            <div class="greeting">User</div>
                             <div class="name">{{ username }}</div>
                         </div>
                     </div>
 
+                    <!-- Model Selection -->
+                    <div class="model-sel border p-2 rounded">
+                        <div class=" form-check form-switch">
+                            <input class="form-check-input" type="checkbox" role="switch" id="modelToggle">
+                            <label class="form-check-label" id="modelTxt" for="flexSwitchCheckDefault">Model Sel</label>
+                        </div>
+                    </div>
+                    
                     <!-- top section icon -->
                     <div class="user-menu">
                         <div class="bell-icon">
@@ -45,15 +54,11 @@ VQA Chat-App
                                     <i class="fa-solid fa-ellipsis-vertical"></i>
                                 </button>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="#">
-                                        <input type="checkbox" id="modelToggle" /> Use GPT-4V
-                                    </a></li>
                                     <li><a class="dropdown-item" href="{{ url_for('model_accuracy') }}">Model Accuracy</a></li>
                                     <li><a class="dropdown-item" href="{{ url_for('about_us') }}">About Us</a></li>
                                     <li><a class="dropdown-item" href="{{ url_for('logout') }}">Logout</a></li>
                                 </ul>
                             </div>
-
                         </div>
                     </div>
 
@@ -69,11 +74,11 @@ VQA Chat-App
                     </form>
                     
                     <div class="img-area p-2" id="img_area">
-                        <h3 class="display-6">Capture or Upload Image</h3>
-                        <p >Use Select-Img or Capture-Img and <span>SUBMIT</span></p>
-                        <p class="guide">Ask any visual based Questions on the image submitted!</p>
-                        <p class="guide">Default: ViLT Model - Vision-and-Language Transformer</p>
-                        <p class="guide">Optional: Select GPT-4V for Comparison</p>
+                        <h3 class="display-6"> VISUAL QUESTION ANSWERING</h3>
+                        <p class="guide-emp">Select-Img or Capture-Img, <span>SUBMIT</span>, Then Ask visual-based Questions on the image!</p>
+                        <p class="guide-emp"><span>MODEL SEL: </span>Switch at top</p>
+                        <p class="guide"><span>ViLT Model:</span> Vision-and-Language Transformer Model, Trained on VQA2</p>
+                        <p class="guide"><span>GPT-4V Model:</span> OpenAI Model for Demo only</p>
                     </div>
 
                     <div class="d-flex justify-content-center">
