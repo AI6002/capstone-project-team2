@@ -133,13 +133,29 @@ def init_routes(app):
 
         return likes_count, dislikes_count, likes_percentage, dislikes_percentage
 
-    # Route to render the Model Accuracy page (modelacc.html)
-    @app.route('/model_accuracy')
-    def model_accuracy():
+    # Route to render the User Accuracy page (useraccuracy.html)
+    @app.route('/user_accuracy')
+    def user_accuracy():
         current_user_id = current_user.id
         # Get likes and dislikes for the current user
         likes_count, dislikes_count, likes_percentage, dislikes_percentage = get_user_likes_dislikes(current_user_id)
-        return render_template('modelacc.html', likes_count=likes_count, dislikes_count=dislikes_count, likes_percentage=likes_percentage, dislikes_percentage=dislikes_percentage)
+        return render_template('useraccuracy.html', likes_count=likes_count, dislikes_count=dislikes_count, likes_percentage=likes_percentage, dislikes_percentage=dislikes_percentage)
+    
+    # Route to render the Model Accuracy page (modelaccuracy.html)
+    @app.route('/model_accuracy')
+    def model_accuracy():
+        # Get overall likes and dislikes from all users
+        likes_count = Reaction.query.filter_by(reaction_type='like').count()
+        dislikes_count = Reaction.query.filter_by(reaction_type='dislike').count()
+
+        total_reactions = likes_count + dislikes_count
+
+        # Calculate percentages
+        likes_percentage = (likes_count / total_reactions) * 100 if total_reactions > 0 else 0
+        dislikes_percentage = (dislikes_count / total_reactions) * 100 if total_reactions > 0 else 0
+
+        return render_template('modelaccuracy.html', likes_count=likes_count, dislikes_count=dislikes_count, likes_percentage=likes_percentage, dislikes_percentage=dislikes_percentage)
+
 
     # Handling the Webcam.html page
     @app.route('/webcam')
