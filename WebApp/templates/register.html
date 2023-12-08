@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block title %}
+Register VQA
+{% endblock %}
+
+{% block header %}
+<!-- No Header required -->
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header text-center">
+                    <img src="{{ url_for('static', filename='/images/logo.png')}}" alt="Logo" class="img-fluid" style="max-width: 100px;">
+                    <h2>Register for VQA Chat-App</h2>
+                </div>
+                <div class="card-body">
+                    <form method="post" action="/signup">
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Username</label>
+                            <input type="text" class="form-control" id="username" name="username" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email address</label>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="password" name="password" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="confirm-password" class="form-label">Confirm Password</label>
+                            <input type="password" class="form-control" id="confirm-password" name="confirm_password" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary" value="Login">Sign Up</button>
+
+                        {% with messages = get_flashed_messages() %}
+                            {% if messages %}
+                                <div class="alert alert-danger mt-2">
+                                {% for message in messages %}
+                                    {{ message }}
+                                {% endfor %}
+                                </div>
+                            {% endif %}
+                        {% endwith %}
+                    </form>
+                </div>
+                <div class="card-footer text-center">
+                    <p>Already a member? <a href="{{ url_for('login') }}">Login</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+{% endblock %}
+
+{% block additional_scripts %}
+<script>
+
+</script>
+{% endblock %}

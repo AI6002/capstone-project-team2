@@ -1,0 +1,165 @@
+{% extends "base.html" %}
+
+{% block title %}
+VQA Chat-App
+{% endblock %}
+
+{% block additional_head %}
+
+{% endblock %}
+
+{% block header %}
+<!-- Noting needed -->
+{% endblock %}
+
+{% block content %}
+
+
+
+
+<div class="container h-100"></div>
+    <div class="row chat-bot-wrapper">
+        <div class="col-12 col-lg-4">
+
+            <div class="card card-lg-screen card-sm-screen">
+                <div class="top-section">
+                    <!-- Profile Info -->
+                    <div class="profile">
+                        <div class="profile-image">
+                            <img src="{{ url_for('static', filename='/images/profile.jpg') }}" alt="Profile image">
+                        </div>
+                        <div class="profile-info">
+                            <div class="greeting">User</div>
+                            <div class="name">{{ username }}</div>
+                        </div>
+                    </div>
+
+                    <!-- Model Selection -->
+                    <div class="model-sel border p-2 rounded">
+                        <div class=" form-check form-switch">
+                            <input class="form-check-input" type="checkbox" role="switch" id="modelToggle">
+                            <label class="form-check-label" id="modelTxt" for="flexSwitchCheckDefault">Model Sel</label>
+                        </div>
+                    </div>
+                    
+                    <!-- top section icon -->
+                    <div class="user-menu">
+                        <div class="bell-icon">
+                            <i class="fa-solid fa-bell"></i>
+                        </div>
+                        <div class="more-icon">
+                            <div class="dropdown">
+                                <button class="btn btn-secondary bg-transparent border-0 dropdown-toggle" type="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="{{ url_for('user_accuracy') }}">User Accuracy</a></li>
+                                    <li><a class="dropdown-item" href="{{ url_for('model_accuracy') }}">Model Accuracy</a></li>
+                                    <li><a class="dropdown-item" href="{{ url_for('about_us') }}">About Us</a></li>
+                                    <li><a class="dropdown-item" href="{{ url_for('logout') }}">Logout</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <!-- Image Upload Section -->
+                <div class="image-upload">
+                    
+                    <form id="imageForm">
+                        <input type="file" id="inp_img" accept="image/*" hidden>
+                        <button type="submit" hidden>img form submit</button>
+                    </form>
+                    
+                    <div class="img-area p-2" id="img_area">
+                        <h3 class="display-6"> VISUAL QUESTION ANSWERING</h3>
+                        <p class="guide-emp">Select-Img or Capture-Img, <span>SUBMIT</span>, Then Ask visual-based Questions on the image!</p>
+                        <p class="guide-emp"><span>MODEL SEL: </span>Switch at top</p>
+                        <p class="guide"><span>ViLT Model:</span> Vision-and-Language Transformer Model, Trained on VQA2 Dataset</p>
+                        <p class="guide"><span>GPT-4V Model:</span> OpenAI Model for Demo only</p>
+                    </div>
+
+                    <div class="d-flex justify-content-center">
+                        <div class="btn-group" role="group">
+                            <button class="btn btn-outline-primary" id="btn_sel_img">
+                                <i class="fa fa-image"></i> Select-Img
+                            </button>
+                            <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#cameraModal">
+                                <i class="fa fa-camera"></i> Capture-Img
+                            </button>
+                            <button class="btn btn-info" id="btn_sub_img" style="font-weight: bold;">
+                                <i class="fa fa-upload "></i> Submit
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Modal for Camera Capture -->
+                <div class="modal fade" id="cameraModal" tabindex="-1" aria-labelledby="cameraModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="cameraModalLabel">Capture User Image</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <video id="cameraStream" width="100%" autoplay></video>
+                                <button class="btn btn-outline-dark" id="switchCamera">
+                                    <i class="fa fa-sync-alt"></i> Switch Camera
+                                </button>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                                    <i class="fa fa-times"></i> Close
+                                </button>
+                                <button type="button" class="btn btn-outline-primary" id="captureImage" style="font-weight: bold;">
+                                    <i class="fa fa-camera"></i> Capture
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Area to display the captured image -->
+                <img id="capturedImage" src="" alt="Captured image will appear here" style="display: none;">
+
+                <!-- Message between User and VQA-app -->
+                <div class="card-body card-body-full-h">
+                    <!-- Message Displaying Area -->
+                    <div id="msg_section">
+
+
+                    </div>
+                </div>
+                <!-- text input form -->
+                <div class="mb-2 mt-2">
+                    <form class="chat-input-form" id="form_chat">
+                        <input type="text" class="chat-input" id="inp_chat" required placeholder="Type Question here ..." />
+                        <button type="submit" class="btn btn-lg btn-info" id="submitBtn">
+                            <span id="btnText"><i class="fa fa-paper-plane"></i> Ask</span>
+                            <span class="spinner-border spinner-border-sm" id="spinner" role="status" aria-hidden="true" style="display: none;"></span>
+                        </button>
+                        
+                        <!-- <button type="submit" class="btn btn-lg btn-info">
+                            <i class="fa fa-paper-plane"></i> Ask
+                        </button> -->
+                    </form>
+                    <button type="button" id="clr_chat" class="mt-2 btn btn-warning">
+                        <i class="fa fa-trash"></i> Clear Chat
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block additional_scripts %}
+<script src="{{ url_for('static', filename='./js/home.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/compressorjs/1.2.1/compressor.min.js" integrity="sha512-MgYeYFj8R3S6rvZHiJ1xA9cM/VDGcT4eRRFQwGA7qDP7NHbnWKNmAm28z0LVjOuUqjD0T9JxpDMdVqsZOSHaSA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+{% endblock %}

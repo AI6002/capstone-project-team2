@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block title %}
+Model Accuracy
+{% endblock %}
+
+{% block header %}
+<!-- No Header required -->
+{% endblock %}
+
+{% block content %}
+
+<h1 class="modelhead">Model Accuracy</h1>
+    <div class="chart-container">
+    <canvas id="accuracyChart" width="400" height="400"></canvas>
+    </div>
+    <div class="cardboard reaction-box">
+        <h1>Overall Reactions</h1>
+        <p><b>Positive:</b> {{ likes_count }} ({{ "%.2f"|format(likes_percentage) }}%)</p>
+        <p><b>Negative:</b> {{ dislikes_count }} ({{ "%.2f"|format(dislikes_percentage)}}%)</p>
+    </div>
+{% endblock %}
+
+{% block additional_scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const renderPieChart = (likes, dislikes) => {
+        const ctx = document.getElementById('accuracyChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ['Likes', 'Dislikes'],
+                datasets: [{
+                    data: [likes, dislikes],
+                    backgroundColor: [
+                        'rgba(26, 74, 255, 0.81)',
+                        'rgba(255, 0, 94, 1)'
+                    ],
+                    borderColor: [
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 99, 132, 1)'
+                    ],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                title: {
+                    display: true,
+                    text: 'Likes vs Dislikes'
+                }
+            }
+        });
+    };
+
+    // Accessing data passed from Flask backend
+    const likes = {{ likes_count }};
+    const dislikes = {{ dislikes_count }};
+
+    // Render pie chart with fetched data
+    renderPieChart(likes, dislikes);
+</script>
+{% endblock %}

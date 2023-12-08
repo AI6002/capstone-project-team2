@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+.column {
+  float: left;
+  width: 33.3%;
+  margin-bottom: 16px;
+  padding: 0 8px;
+}
+
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  margin: 8px;
+}
+
+.team-image {
+  width: 150px; /* Adjust the size as needed */
+  height: 150px; /* Adjust the size as needed */
+  object-fit: cover; /* This ensures the image covers the area without stretching */
+  border-radius: 50%; /* This makes the image round */
+  display: block; /* To center the image in the card */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.about-section {
+  padding: 50px;
+  text-align: center;
+  background-color: #474e5d;
+  color: white;
+}
+
+.container {
+  padding: 0 16px;
+}
+
+.container::after, .row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.title {
+  color: grey;
+}
+
+.button {
+  border: none;
+  outline: 0;
+  display: inline-block;
+  padding: 8px;
+  color: white;
+  background-color: #000;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+}
+
+.button:hover {
+  background-color: #555;
+}
+
+@media screen and (max-width: 650px) {
+  .column {
+    width: 100%;
+    display: block;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="about-section">
+  <h1>About Us: Team 2</h1>
+  <p>We are graduate students pursuing Masters in Artificial Intelligence (MAI) from Memorial University. We have developed this application for Our Capstone-MAI</p>
+  <h2>The Visual Question Answering Chat-UI Web Application</h2>
+  <p>Our VQA model aims to answering open-ended questions based on an image. They output natural language responses to natural language questions.</p>
+  <p>The VQA Model Used here is based on ViLT ICML 2021: Vision-and-Language Transformer Without Convolution or Region Supervision</p>
+</div>
+
+<!-- Supervisor Section -->
+<div class="supervisor-section">
+  <h2 style="text-align:center">Supervisor and Course Info</h2>
+  <div class="row">
+      <div class="column" style="width:100%;">
+          <div class="card">
+              <img src="{{ url_for('static', filename='images/Karteek-Popuri.jpg') }}" alt="Supervisor" class="team-image">
+              <div class="container">
+                  <h2>Dr. Karteek Popuri</h2>
+                  <p class="title">Course: AI 6002 Capstone for Artificial Intelligence</p>
+                  <p>Research Interests: Medical Image Analysis, Machine Learning and Computer Vision.</p>
+                  <p>Email: kpopuri@mun.ca</p>
+                  <p><button class="button">Contact</button></p>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+<!---->
+<h2 style="text-align:center">Our Team</h2>
+<div class="row">
+  <div class="column">
+    <div class="card">
+      <img src="{{ url_for('static', filename='images/Roldan1.jpg') }}" alt="Roldan" class="team-image">
+      <div class="container">
+        <h2>Roldan Mba Esidang</h2>
+        <p class="title">Member 1</p>
+        <p>BscEng in Electronics and Communication Engineering.</p>
+        <p>MEng in Information and Communication Engineering.</p>
+        <p>Currently following a MASc in Artificial Intelligence.</p>
+        <p>meroldan@mun.ca</p>
+        <p><button class="button">Contact</button></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="column">
+    <div class="card">
+      <img src="{{ url_for('static', filename='images/Thevananthan1.jpg') }}" alt="Thevananthan" class="team-image">
+      <div class="container">
+        <h2>Thevananthan Thevarasa</h2>
+        <p class="title">Member 2</p>
+        <p>BScEng in Electrical and Electronic Engineering.</p>
+        <p>PGDip. in Electronics and Automation.</p>
+        <p>Currently following a MASc in Artificial Intelligence.</p>
+        <p>thevananthat@mun.ca</p>
+        <p><button class="button">Contact</button></p>
+      </div>
+    </div>
+  </div>
+  
+  <div class="column">
+    <div class="card">
+      <img src="{{ url_for('static', filename='images/Aayush1.jpg') }}" alt="Aayush" class="team-image">
+      <div class="container">
+        <h2>Aayush Rijal</h2>
+        <p class="title">Member 3</p>
+        <p>BScEng in Electronics and Telecommunication.</p>
+        <p>Currently following a MASc in Artificial Intelligence.</p>
+        <p>arijal@mun.ca</p>
+        <p><button class="button">Contact</button></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

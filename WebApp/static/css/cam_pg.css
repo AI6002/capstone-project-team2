@@ -1,0 +1,45 @@
+#imagepage .webcointainer .row .col-lg-6 .text{
+    color: #fff;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+#imagepage .webcointainer .headdisplay{
+    font-size: 2.5em;
+    font-weight: bold;
+    color: #fff;
+
+}
+
+#imagepage .webcointainer .row .col-lg-6 #take_snapshot{
+    border-radius:0.5em;
+    padding:0.625em;
+    background:#3f3f5d;
+    color:#fff;
+    cursor: pointer;
+    border:1px solid #3f3f5d
+}
+
+#imagepage .webcointainer .row .col-lg-6 #take_snapshot:hover {    /* This function is for the hover on the button which means if you go near button there will be slight color change.*/
+    filter: brightness(0.9);
+}
+
+#imagepage .webcointainer .row .col-lg-6 #take_snapshot:active {             /* This function is for the changing of the button when you click button moves so that user knows button is clicked.*/
+    transform: translateY(2px);
+}
+
+#imagepage .webcointainer .row .col-lg-6 .btn.btn-success{
+    border-radius:0.5em;
+    padding:0.625em;
+    background:#3f3f5d;
+    color:#fff;
+    cursor: pointer;
+    border:1px solid #3f3f5d
+}
+#imagepage .webcointainer .row .col-lg-6 .btn.btn-success:hover{
+    filter: brightness(0.9);
+}
+
+#imagepage .webcointainer .row .col-lg-6 .btn.btn-success:active{
+    transform: translateY(2px);
+}
